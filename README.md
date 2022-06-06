@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# Getting Started with Create React TodoPage
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was bootstrapped with [Create React TodoPage](https://github.com/facebook/create-react-app).
 
 ## Installing the app
 
@@ -10,7 +10,7 @@ Download or clone the repository. Then find the project in the terminal and run 
 
 After installing the required libraries, the application will be ready to run
 
-## App launch
+## TodoPage launch
 
 In the project directory, you can run:
 
