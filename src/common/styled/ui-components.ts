@@ -1,4 +1,14 @@
-import styled from 'styled-components';
+import styled, {keyframes} from 'styled-components';
+
+export const ldsRing = keyframes`
+  0% {
+    transform: rotate(0deg);
+  }
+  
+  100% {
+    transform: rotate(360deg);
+  }
+`;
 
 export const PageWrapper = styled.div`
   padding: 20px;
@@ -22,10 +32,6 @@ export const PageSubtitle = styled.p`
   transition: color 0.2s ease-in;
 `;
 
-export const PageContent = styled.div`
-
-`;
-
 export const PageTheme = styled.div`
   position: absolute;
   right: 20px;
@@ -41,5 +47,56 @@ export const PageTheme = styled.div`
     svg {
       fill: ${props => props.theme.secondaryAction};
     }
+  }
+`;
+
+export const PageContent = styled.div`
+  margin-top: 100px;
+`;
+
+export const SpinnerWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  position: absolute;
+  top: 48%;
+  left: 50.5%;
+  
+  width: 80px;
+  height: 80px;
+  
+  span {
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    
+    width: 64px;
+    height: 64px;
+    
+    margin: 8px;
+    border: 2px solid ${props => props.theme.action};
+    border-color: ${props => props.theme.action} transparent ${props => props.theme.action} transparent;
+    border-radius: 50%;
+    
+    animation: ${ldsRing} 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  }
+
+  span:nth-child(1) {
+    width: 54px;
+    height: 54px;
+    animation-delay: -0.15s;
+  }
+
+  span:nth-child(2) {
+    width: 44px;
+    height: 44px;
+    animation-delay: -0.3s;
+  }
+
+  span:nth-child(3) {
+    width: 34px;
+    height: 34px;
+    animation-delay: -0.45s;
   }
 `;

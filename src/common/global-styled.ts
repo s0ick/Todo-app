@@ -15,6 +15,10 @@ export const GlobalStyles = createGlobalStyle<{theme: ThemeType }>`
     padding: 0;
   }
   
+  a {
+    text-decoration: none;
+  }
+  
   body {
     background-color: ${props => props.theme.background};
     color: ${props => props.theme.text};
