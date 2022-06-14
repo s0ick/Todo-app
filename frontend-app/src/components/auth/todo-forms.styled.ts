@@ -21,7 +21,7 @@ export const TodoFormsWrapper = styled.div`
 export const TodoFormsTitle = styled.h2`
   margin: 0;
   padding: 0;
-  
+  letter-spacing: 2px;
   font-size: 28px;
 `;
 
