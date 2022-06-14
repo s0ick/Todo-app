@@ -26,4 +26,11 @@ export const GlobalStyles = createGlobalStyle<{theme: ThemeType }>`
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
     transition: background 0.2s ease-in, color 0.2s ease-in;
   }
+
+  input {outline: none;}
+  input:-webkit-autofill {
+    -webkit-box-shadow: inset 0 0 0 50px ${props => props.theme.secondaryBackground} !important;
+    -webkit-text-fill-color: ${props => props.theme.text} !important;
+    color: ${props => props.theme.text} !important;
+  }
 `;

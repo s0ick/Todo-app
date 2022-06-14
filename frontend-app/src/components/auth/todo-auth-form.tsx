@@ -1,4 +1,5 @@
-import React, {useCallback, useState} from 'react';
+import React, {FC, useCallback, useState} from 'react';
+import {NavLink} from 'react-router-dom';
 
 import {Checked} from '../../common/ui-components/checked';
 
@@ -7,11 +8,14 @@ import {
   TodoFormsTitle,
   TodoFormsInputBlock,
   TodoFormsInput,
-  TodoFormsButton, TodoFormsButtonsWrapper, TodoFormsCheckbox
+  TodoFormsButton, TodoFormsButtonsWrapper, TodoFormsCheckbox, TodoFormsGuest
 } from './todo-forms.styled';
-import {NavLink} from 'react-router-dom';
 
-export function TodoAuthForm() {
+interface FormProps {
+  setIsGuest: () => void;
+}
+
+export const TodoAuthForm: FC<FormProps> = ({setIsGuest}) => {
   const [name, setName] = useState('');
   const [psw, setPsw] = useState('');
   const [checked, setChecked] = useState(false);
@@ -36,6 +40,12 @@ export function TodoAuthForm() {
     () => {
       setChecked(prevState => !prevState);
     }, []
+  );
+
+  const handleGuest = useCallback(
+    () => {
+      setIsGuest();
+    }, [setIsGuest]
   );
 
   return (
@@ -83,6 +93,10 @@ export function TodoAuthForm() {
           </TodoFormsButton>
         </NavLink>
       </TodoFormsButtonsWrapper>
+
+      <TodoFormsGuest onClick={handleGuest}>
+        {'Continue as a guest'}
+      </TodoFormsGuest>
     </TodoFormsWrapper>
   );
 }

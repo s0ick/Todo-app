@@ -51,7 +51,7 @@ export const PageTheme = styled.div`
 `;
 
 export const PageContent = styled.div`
-  margin-top: 100px;
+  margin-top: 50px;
 `;
 
 export const SpinnerWrapper = styled.div`

@@ -13,7 +13,7 @@ export const Themes = {
     background: '#263238',
     secondaryBackground: '#37474F',
     text: '#ECEFF1',
-    secondaryText: '#CDD8DC',
+    secondaryText: '#9E9E9E',
     action: '#00B0FF',
     secondaryAction: '#40C4FF',
     successful: '#00C853',

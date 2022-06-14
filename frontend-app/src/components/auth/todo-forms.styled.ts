@@ -15,6 +15,7 @@ export const TodoFormsWrapper = styled.div`
   background-color: ${props => props.theme.secondaryBackground};
   
   padding: 50px;
+  padding-bottom: 20px;
   border-radius: 12px;
 `;
 
@@ -112,5 +113,17 @@ export const TodoFormsButton = styled.div<StyledProps>`
   :hover {
     cursor: pointer;
     background-color: ${props => props.accent ? props.theme.successfulLight : props.theme.secondaryAction};
+  }
+`;
+
+export const TodoFormsGuest = styled.div`
+  color: ${props => props.theme.secondaryText};
+  margin-top: 30px;
+  font-size: 16px;
+  transition: color 0.2s ease-in;
+
+  :hover {
+    cursor: pointer;
+    color: ${props => props.theme.action};
   }
 `;
