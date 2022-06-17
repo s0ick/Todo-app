@@ -1,11 +1,11 @@
 import React from 'react';
 
-import {TodoStatisticsWrapper} from './todo-statistics.styled';
+import {PageWrapperContent} from '../../common/styled/ui-components';
 
 export function TodoStatistics() {
   return (
-    <TodoStatisticsWrapper>
+    <PageWrapperContent>
       {'statistics'}
-    </TodoStatisticsWrapper>
+    </PageWrapperContent>
   );
 }

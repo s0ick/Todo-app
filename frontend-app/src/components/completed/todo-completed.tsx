@@ -1,11 +1,11 @@
 import React from 'react';
 
-import {TodoCompletedWrapper} from './todo-completed.styled';
+import {PageWrapperContent} from '../../common/styled/ui-components';
 
 export function TodoCompleted() {
   return (
-    <TodoCompletedWrapper>
+    <PageWrapperContent>
       {'Completed'}
-    </TodoCompletedWrapper>
+    </PageWrapperContent>
   );
 }

@@ -17,7 +17,7 @@ import {
 
 import {TodoAuthForm} from './auth/todo-auth-form';
 import {TodoRegistrationForm} from './auth/todo-registration-form';
-import {TodoNavigator} from './navigator/todo-navigator';
+import {TodoNavigation} from './navigation/todo-navigation';
 import {TodoTasks} from './tasks/todo-tasks';
 import {TodoCompleted} from './completed/todo-completed';
 import {TodoStatistics} from './statistics/todo-statistics';
@@ -71,8 +71,16 @@ export function TodoPage() {
 
         <PageContent>
           <Suspense fallback={<Spinner/>}>
-            {isGuest && <TodoNavigator/>}
+            {isGuest && <TodoNavigation/>}
             <Routes>
+              {!isGuest &&
+                <>
+                  <Route path={'/tasks'} element={<Navigate to={'/auth'}/>}/>
+                  <Route path={'/completed'} element={<Navigate to={'/auth'}/>}/>
+                  <Route path={'/statistics'} element={<Navigate to={'/auth'}/>}/>
+                </>
+              }
+
               {isGuest &&
                 <>
                   <Route path={'/auth'} element={<Navigate to={'/tasks'}/>}/>

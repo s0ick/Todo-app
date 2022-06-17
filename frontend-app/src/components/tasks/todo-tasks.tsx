@@ -1,11 +1,11 @@
 import React from 'react';
 
-import {TodoTasksWrapper} from './todo-tasks.styled';
+import {PageWrapperContent} from '../../common/styled/ui-components';
 
 export function TodoTasks() {
   return (
-    <TodoTasksWrapper>
+    <PageWrapperContent>
       {'Tasks'}
-    </TodoTasksWrapper>
+    </PageWrapperContent>
   );
 }

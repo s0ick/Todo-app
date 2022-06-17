@@ -39,19 +39,33 @@ export const PageTheme = styled.div`
   
   svg {
     fill: ${props => props.theme.action};
-    transition: fill 0.2s ease-in;
+    border-radius: 50%;
+    transition: fill 0.2s ease-in, box-shadow 0.2s ease-in;
   }
   
   :hover {
     cursor: pointer;
     svg {
       fill: ${props => props.theme.secondaryAction};
+      box-shadow: 
+             0 0 40px 1px ${props => props.theme.secondaryAction},
+             inset 0 0 10px 0 ${props => props.theme.secondaryAction};
     }
   }
 `;
 
 export const PageContent = styled.div`
   margin-top: 50px;
+`;
+
+export const PageWrapperContent = styled.div`
+  background-color: ${props => props.theme.secondaryBackground};
+  padding: 15px;
+  height: 730px;
+  border-radius: 12px;
+  overflow: auto;
+
+  transition: background-color 0.2s ease-in;
 `;
 
 export const SpinnerWrapper = styled.div`
