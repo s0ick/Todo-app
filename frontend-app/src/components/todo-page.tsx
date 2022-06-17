@@ -4,6 +4,7 @@ import {ThemeProvider} from 'styled-components';
 
 import {IconThemeMode} from '../common/ui-components/icons';
 import {Spinner} from '../common/ui-components/spinner';
+import {NotificationsProvider} from '../common/ui-components/notifications/notifications-provider';
 import {SUBTITLE, TITLE} from '../utils/content-constants';
 import {GlobalStyles} from '../common/global-styled';
 import {Themes} from '../common/styled/color-constants';
@@ -59,49 +60,51 @@ export function TodoPage() {
 
   return (
     <ThemeProvider theme={Themes[theme]}>
-      <GlobalStyles/>
+      <NotificationsProvider>
+        <GlobalStyles/>
 
-      <PageWrapper>
-        <PageTitle>{TITLE}</PageTitle>
-        <PageSubtitle>{SUBTITLE}</PageSubtitle>
+        <PageWrapper>
+          <PageTitle>{TITLE}</PageTitle>
+          <PageSubtitle>{SUBTITLE}</PageSubtitle>
 
-        <PageTheme onClick={_toggleMode}>
-          <IconThemeMode/>
-        </PageTheme>
+          <PageTheme onClick={_toggleMode}>
+            <IconThemeMode/>
+          </PageTheme>
 
-        <PageContent>
-          <Suspense fallback={<Spinner/>}>
-            {isGuest && <TodoNavigation/>}
-            <Routes>
-              {!isGuest &&
-                <>
-                  <Route path={'/tasks'} element={<Navigate to={'/auth'}/>}/>
-                  <Route path={'/completed'} element={<Navigate to={'/auth'}/>}/>
-                  <Route path={'/statistics'} element={<Navigate to={'/auth'}/>}/>
-                </>
-              }
+          <PageContent>
+            <Suspense fallback={<Spinner/>}>
+              {isGuest && <TodoNavigation/>}
+              <Routes>
+                {!isGuest &&
+                  <>
+                    <Route path={'/tasks'} element={<Navigate to={'/auth'}/>}/>
+                    <Route path={'/completed'} element={<Navigate to={'/auth'}/>}/>
+                    <Route path={'/statistics'} element={<Navigate to={'/auth'}/>}/>
+                  </>
+                }
 
-              {isGuest &&
-                <>
-                  <Route path={'/auth'} element={<Navigate to={'/tasks'}/>}/>
-                  <Route path={'/tasks'} element={<TodoTasks/>}/>
-                  <Route path={'/completed'} element={<TodoCompleted/>}/>
-                  <Route path={'/statistics'} element={<TodoStatistics/>}/>
-                </>
-              }
+                {isGuest &&
+                  <>
+                    <Route path={'/auth'} element={<Navigate to={'/tasks'}/>}/>
+                    <Route path={'/tasks'} element={<TodoTasks/>}/>
+                    <Route path={'/completed'} element={<TodoCompleted/>}/>
+                    <Route path={'/statistics'} element={<TodoStatistics/>}/>
+                  </>
+                }
 
-              {!isGuest &&
-                <>
-                  <Route path={'/'} element={<Navigate to={'/auth'}/>}/>
-                  <Route path={'/auth'} element={<TodoAuthForm setIsGuest={_handleGuest}/>}/>
-                  <Route path={'/registration'} element={<TodoRegistrationForm/>}/>
-                </>
-              }
-            </Routes>
-          </Suspense>
-        </PageContent>
+                {!isGuest &&
+                  <>
+                    <Route path={'/'} element={<Navigate to={'/auth'}/>}/>
+                    <Route path={'/auth'} element={<TodoAuthForm setIsGuest={_handleGuest}/>}/>
+                    <Route path={'/registration'} element={<TodoRegistrationForm/>}/>
+                  </>
+                }
+              </Routes>
+            </Suspense>
+          </PageContent>
 
-      </PageWrapper>
+        </PageWrapper>
+      </NotificationsProvider>
     </ThemeProvider>
   );
 }

@@ -1,14 +1,11 @@
-import styled, {keyframes} from 'styled-components';
+import styled from 'styled-components';
 
-export const ldsRing = keyframes`
-  0% {
-    transform: rotate(0deg);
-  }
-  
-  100% {
-    transform: rotate(360deg);
-  }
-`;
+import {ldsRing, slideLeft, slideRight} from './animations';
+
+interface NotificationsStylesProps {
+  isSuccess: boolean,
+  exit: boolean
+}
 
 export const PageWrapper = styled.div`
   padding: 20px;
@@ -33,9 +30,11 @@ export const PageSubtitle = styled.p`
 `;
 
 export const PageTheme = styled.div`
-  position: absolute;
+  position: fixed;
   right: 20px;
   top: 20px;
+  
+  z-index: 1;
   
   svg {
     fill: ${props => props.theme.action};
@@ -112,5 +111,51 @@ export const SpinnerWrapper = styled.div`
     width: 34px;
     height: 34px;
     animation-delay: -0.45s;
+  }
+`;
+
+export const NotificationsWrapper = styled.div`
+  width: 300px;
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  z-index: 9999;
+`;
+
+export const NotificationItem = styled.div<NotificationsStylesProps>`
+  overflow: hidden;
+  margin-bottom: 20px;
+  width: 300px;
+  
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+
+  animation: ${props => props.exit ? slideRight : slideLeft} .4s;
+  animation-fill-mode: forwards;
+  
+  background-color: ${props => props.theme.secondaryBackground};
+  
+  transition: background-color .2s ease-in;
+  
+  h3 {
+    padding: 0;
+    padding-left: 15px;
+    padding-top: 10px;
+    margin: 0;
+    
+    font-size: 16px;
+  }
+  
+  p {
+    margin: 0;
+    padding: 10px;
+    padding-left: 15px;
+    margin-bottom: 8px;
+    font-size: 14px;
+  }
+  
+  div {
+    background-color: ${props => props.isSuccess ? props.theme.successful : props.theme.error};
+    height: 5px;
   }
 `;

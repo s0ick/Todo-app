@@ -33,6 +33,12 @@ export function TodoRegistrationForm() {
     }, []
   );
 
+  const handleClick = useCallback(
+    () => {
+
+    }, []
+  );
+
   return (
     <TodoFormsWrapper>
       <TodoFormsTitle>{'Registration'}</TodoFormsTitle>
@@ -71,7 +77,7 @@ export function TodoRegistrationForm() {
       </TodoFormsInputBlock>
 
       <TodoFormsButtonsWrapper>
-        <TodoFormsButton accent>
+        <TodoFormsButton accent onClick={handleClick}>
           {'Registration'}
         </TodoFormsButton>
 

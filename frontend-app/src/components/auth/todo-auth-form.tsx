@@ -2,6 +2,7 @@ import React, {FC, useCallback, useState} from 'react';
 import {NavLink} from 'react-router-dom';
 
 import {Checked} from '../../common/ui-components/checked';
+import {useNotification} from '../../common/ui-components/notifications/notifications-provider';
 
 import {
   TodoFormsWrapper,
@@ -19,6 +20,8 @@ export const TodoAuthForm: FC<FormProps> = ({setIsGuest}) => {
   const [name, setName] = useState('');
   const [psw, setPsw] = useState('');
   const [checked, setChecked] = useState(false);
+
+  const dispatch = useNotification();
 
   const handleInput = useCallback(
     (event: React.FormEvent<EventTarget>) => {
@@ -45,7 +48,12 @@ export const TodoAuthForm: FC<FormProps> = ({setIsGuest}) => {
   const handleGuest = useCallback(
     () => {
       setIsGuest();
-    }, [setIsGuest]
+      dispatch({
+        type: 'SUCCESS',
+        message: 'You are logged in as a guest. Data will be stored in local storage',
+        title: 'Welcome'
+      });
+    }, [setIsGuest, dispatch]
   );
 
   return (

@@ -91,6 +91,7 @@ export const TodoNavigationList = styled.li<StyleProps>`
       
       svg {
         fill: #000;
+        transition-delay: .25s;
       }
   `}};
 `;
@@ -108,6 +109,7 @@ export const TodoNavigationIcon = styled.span<StyleProps>`
   z-index: 2;
   background-color: transparent;
   transition: transform 0.5s, background-color .5s;
+  transition-delay: 0s;
 
   svg {
     fill: ${props => props.theme.text};

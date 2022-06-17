@@ -10,7 +10,8 @@ export const Themes = {
     successfulLight: '#69F0AE',
     iconList: '#00E5FF',
     iconComplete: '#76FF03',
-    iconStat: '#FFEA00'
+    iconStat: '#FFEA00',
+    error: '#FF1744'
   },
   dark: {
     background: '#263238',
@@ -23,7 +24,8 @@ export const Themes = {
     successfulLight: '#00E676',
     iconList: '#18FFFF',
     iconComplete: '#B2FF59',
-    iconStat: '#EEFF41'
+    iconStat: '#EEFF41',
+    error: '#FF1744'
   }
 };
 
