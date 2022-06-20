@@ -1,12 +1,18 @@
 import React, {useCallback, useState} from 'react';
 import {NavLink} from 'react-router-dom';
 
+import {PageSubtitle} from '../../common/styled/ui-components';
+import {SUBTITLE} from '../../utils/content-constants';
+
 import {
+  TodoFormsContent,
   TodoFormsWrapper,
   TodoFormsTitle,
   TodoFormsInputBlock,
   TodoFormsInput,
-  TodoFormsButton, TodoFormsButtonsWrapper
+  TodoFormsButton,
+  TodoFormsButtonsWrapper,
+  TodoFormsImgContainer
 } from './todo-forms.styled';
 
 export function TodoRegistrationForm() {
@@ -40,53 +46,60 @@ export function TodoRegistrationForm() {
   );
 
   return (
-    <TodoFormsWrapper>
-      <TodoFormsTitle>{'Registration'}</TodoFormsTitle>
+    <TodoFormsContent>
+      <TodoFormsWrapper>
+        <TodoFormsTitle>{'Registration'}</TodoFormsTitle>
+        <PageSubtitle>{SUBTITLE}</PageSubtitle>
 
-      <TodoFormsInputBlock>
-        <TodoFormsInput
-          type={'text'}
-          name={'name'}
-          value={name}
-          pl={70}
-          onInput={handleInput}
-        />
-        <label>{'Name:'}</label>
-      </TodoFormsInputBlock>
+        <TodoFormsInputBlock>
+          <TodoFormsInput
+            type={'text'}
+            name={'name'}
+            value={name}
+            pl={70}
+            onInput={handleInput}
+          />
+          <label>{'Name:'}</label>
+        </TodoFormsInputBlock>
 
-      <TodoFormsInputBlock>
-        <TodoFormsInput
-          type={'password'}
-          name={'psw'}
-          value={psw}
-          pl={100}
-          onInput={handleInput}
-        />
-        <label>{'Password:'}</label>
-      </TodoFormsInputBlock>
+        <TodoFormsInputBlock>
+          <TodoFormsInput
+            type={'password'}
+            name={'psw'}
+            value={psw}
+            pl={100}
+            onInput={handleInput}
+          />
+          <label>{'Password:'}</label>
+        </TodoFormsInputBlock>
 
-      <TodoFormsInputBlock>
-        <TodoFormsInput
-          type={'password'}
-          name={'r-psw'}
-          value={repeat}
-          pl={160}
-          onInput={handleInput}
-        />
-        <label>{'Repeat password:'}</label>
-      </TodoFormsInputBlock>
+        <TodoFormsInputBlock>
+          <TodoFormsInput
+            type={'password'}
+            name={'r-psw'}
+            value={repeat}
+            pl={160}
+            onInput={handleInput}
+          />
+          <label>{'Repeat password:'}</label>
+        </TodoFormsInputBlock>
 
-      <TodoFormsButtonsWrapper>
-        <TodoFormsButton accent onClick={handleClick}>
-          {'Registration'}
-        </TodoFormsButton>
-
-        <NavLink to={'/auth'}>
-          <TodoFormsButton accent={false}>
-            {'Back'}
+        <TodoFormsButtonsWrapper>
+          <TodoFormsButton accent onClick={handleClick}>
+            {'Registration'}
           </TodoFormsButton>
-        </NavLink>
-      </TodoFormsButtonsWrapper>
-    </TodoFormsWrapper>
+
+          <NavLink to={'/auth'}>
+            <TodoFormsButton accent={false}>
+              {'Back'}
+            </TodoFormsButton>
+          </NavLink>
+        </TodoFormsButtonsWrapper>
+      </TodoFormsWrapper>
+
+      <TodoFormsImgContainer>
+        <img src={'./resources/bgi-1.jpg'} alt={'background-image'}/>
+      </TodoFormsImgContainer>
+    </TodoFormsContent>
   );
 }
