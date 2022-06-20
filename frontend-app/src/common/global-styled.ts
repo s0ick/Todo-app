@@ -26,6 +26,7 @@ export const GlobalStyles = createGlobalStyle<{theme: ThemeType }>`
     
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
     transition: background 0.2s ease-in, color 0.2s ease-in;
+    overflow: hidden;
   }
 
   input {outline: none;}

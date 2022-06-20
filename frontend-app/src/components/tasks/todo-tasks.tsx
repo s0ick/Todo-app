@@ -1,8 +1,15 @@
-import React from 'react';
+import React, {FC} from 'react';
 
 import {PageWrapperContent} from '../../common/styled/ui-components';
 
-export function TodoTasks() {
+import {Task} from '../todo-page';
+
+interface TodoTasksProps {
+  tasks: Array<Task>,
+  setTask: (task: Task) => void
+}
+
+export const TodoTasks: FC<TodoTasksProps> = ({tasks, setTask}) => {
   return (
     <PageWrapperContent>
       {'Tasks'}

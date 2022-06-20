@@ -11,7 +11,8 @@ export const Themes = {
     iconList: '#00E5FF',
     iconComplete: '#76FF03',
     iconStat: '#FFEA00',
-    error: '#FF1744'
+    error: '#FF1744',
+    form: 'rgba(238, 238, 238, .5)'
   },
   dark: {
     background: '#263238',
@@ -25,7 +26,8 @@ export const Themes = {
     iconList: '#18FFFF',
     iconComplete: '#B2FF59',
     iconStat: '#EEFF41',
-    error: '#FF1744'
+    error: '#FF1744',
+    form: 'rgba(55, 71, 79, .5)'
   }
 };
 

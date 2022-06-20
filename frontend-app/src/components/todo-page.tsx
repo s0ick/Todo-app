@@ -28,9 +28,17 @@ enum ThemeModes {
   DARK = 'dark'
 }
 
+export interface Task {
+  id: number,
+  date: Date,
+  completed: boolean,
+  message: string
+}
+
 export function TodoPage() {
-  const [isLightMode, setIsLightMode] = useState(true);
-  const [isGuest, setIsGuest] = useState(false);
+  const [isLightMode, setIsLightMode] = useState<boolean>(true);
+  const [isGuest, setIsGuest] = useState<boolean>(false);
+  const [tasks, setTasks] = useState<Array<Task>>([]);
 
   const _toggleMode = useCallback(
     (): void => {
@@ -41,9 +49,15 @@ export function TodoPage() {
     }, []
   );
 
-  const _handleGuest = useCallback(
+  const handleGuest = useCallback(
     () => {
       setIsGuest(prevState => !prevState);
+    }, []
+  );
+
+  const createNewTask = useCallback(
+    (task: Task) => {
+      setTasks(prevState => [...prevState, task]);
     }, []
   );
 
@@ -64,8 +78,10 @@ export function TodoPage() {
         <GlobalStyles/>
 
         <PageWrapper>
-          <PageTitle>{TITLE}</PageTitle>
-          <PageSubtitle>{SUBTITLE}</PageSubtitle>
+          <PageTitle>
+            <div>{TITLE[0]}</div>
+            <span>{TITLE[1]}</span>
+          </PageTitle>
 
           <PageTheme onClick={_toggleMode}>
             <IconThemeMode/>
@@ -86,7 +102,12 @@ export function TodoPage() {
                 {isGuest &&
                   <>
                     <Route path={'/auth'} element={<Navigate to={'/tasks'}/>}/>
-                    <Route path={'/tasks'} element={<TodoTasks/>}/>
+                    <Route path={'/tasks'} element={
+                      <TodoTasks
+                        tasks={tasks}
+                        setTask={createNewTask}
+                      />
+                    }/>
                     <Route path={'/completed'} element={<TodoCompleted/>}/>
                     <Route path={'/statistics'} element={<TodoStatistics/>}/>
                   </>
@@ -95,7 +116,7 @@ export function TodoPage() {
                 {!isGuest &&
                   <>
                     <Route path={'/'} element={<Navigate to={'/auth'}/>}/>
-                    <Route path={'/auth'} element={<TodoAuthForm setIsGuest={_handleGuest}/>}/>
+                    <Route path={'/auth'} element={<TodoAuthForm setIsGuest={handleGuest}/>}/>
                     <Route path={'/registration'} element={<TodoRegistrationForm/>}/>
                   </>
                 }

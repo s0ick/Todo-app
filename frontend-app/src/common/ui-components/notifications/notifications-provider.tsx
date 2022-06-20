@@ -16,10 +16,16 @@ interface ActionProps {
   id?: string
 }
 
-interface NotificationProps {
+interface NoteProps {
   type: string,
   message: string,
   id: string,
+  title?: string
+}
+
+interface NotificationProps {
+  type: string,
+  message: string,
   title?: string
 }
 
@@ -40,7 +46,7 @@ export const NotificationsProvider: FC<ProviderProps> = ({children}) => {
   return (
     <NotificationContext.Provider value={dispatch}>
       <NotificationsWrapper>
-        {state.map((note: NotificationProps) => <Notifications dispatch={dispatch} key={note.id} {...note}/>)}
+        {state.map((note: NoteProps) => <Notifications dispatch={dispatch} key={note.id} {...note}/>)}
       </NotificationsWrapper>
       {children}
     </NotificationContext.Provider>
@@ -50,7 +56,7 @@ export const NotificationsProvider: FC<ProviderProps> = ({children}) => {
 export const useNotification = () => {
   const dispatch = useContext(NotificationContext);
 
-  return (props: any) => {
+  return (props: NotificationProps | null) => {
     if (dispatch) {
       dispatch({
         type: 'ADD_NOTIFICATION',

@@ -10,6 +10,7 @@ interface ComponentProps {
 
 const CheckboxWrapper = styled.label`
   font-size: 18px;
+  cursor: pointer;
 `;
 
 const HiddenCheckbox = styled.input.attrs({type: 'checkbox'})`
@@ -30,9 +31,10 @@ const StyledCheckbox = styled.div<ComponentProps>`
   width: 18px;
   height: 18px;
   margin-right: 10px;
-  background-color: ${props => props.checked ? props.theme.action : props.theme.background};
+  background-color: ${props => props.checked ? props.theme.action : props.theme.secondaryBackground};
   border-radius: 3px;
-  transition: background-color 0.2s ease-in;
+  box-shadow: 0 0 1px 1px ${props => props.theme.secondaryText};
+  transition: background-color 0.2s ease-in, box-shadow 0.2s ease-in;
   
   svg {
     fill: none;

@@ -16,7 +16,32 @@ export const PageTitle = styled.h1`
   margin: 0;
   padding: 0;
   
-  font-size: 32px;
+  font-size: 24px;
+  
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  position: absolute;
+  left: 35px;
+  top: 20px;
+  
+  z-index: 1;
+  
+  div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    
+    border-radius: 8px;
+    
+    background-color: ${props => props.theme.action};
+    transition: background-color 0.2s ease-in;
+  }
+  
+  span {
+    margin-left: 5px;
+  }
 `;
 
 export const PageSubtitle = styled.p`
@@ -44,6 +69,7 @@ export const PageTheme = styled.div`
   
   :hover {
     cursor: pointer;
+    
     svg {
       fill: ${props => props.theme.secondaryAction};
       box-shadow: 
@@ -54,13 +80,13 @@ export const PageTheme = styled.div`
 `;
 
 export const PageContent = styled.div`
-  margin-top: 50px;
+  margin-top: 25px;
 `;
 
 export const PageWrapperContent = styled.div`
   background-color: ${props => props.theme.secondaryBackground};
   padding: 15px;
-  height: 730px;
+  height: calc(100vh - 140px);
   border-radius: 12px;
   overflow: auto;
 

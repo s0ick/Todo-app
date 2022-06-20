@@ -3,13 +3,20 @@ import {NavLink} from 'react-router-dom';
 
 import {Checked} from '../../common/ui-components/checked';
 import {useNotification} from '../../common/ui-components/notifications/notifications-provider';
+import {PageSubtitle} from '../../common/styled/ui-components';
+import {SUBTITLE} from '../../utils/content-constants';
 
 import {
   TodoFormsWrapper,
   TodoFormsTitle,
   TodoFormsInputBlock,
   TodoFormsInput,
-  TodoFormsButton, TodoFormsButtonsWrapper, TodoFormsCheckbox, TodoFormsGuest
+  TodoFormsButton,
+  TodoFormsButtonsWrapper,
+  TodoFormsCheckbox,
+  TodoFormsGuest,
+  TodoFormsContent,
+  TodoFormsImgContainer
 } from './todo-forms.styled';
 
 interface FormProps {
@@ -57,54 +64,62 @@ export const TodoAuthForm: FC<FormProps> = ({setIsGuest}) => {
   );
 
   return (
-    <TodoFormsWrapper>
-      <TodoFormsTitle>{'Authorization'}</TodoFormsTitle>
+    <TodoFormsContent>
+      <TodoFormsWrapper>
+        <TodoFormsTitle>{'Authorization'}</TodoFormsTitle>
+        <PageSubtitle>{SUBTITLE}</PageSubtitle>
 
-      <TodoFormsInputBlock>
-        <TodoFormsInput
-          type={'text'}
-          name={'name'}
-          value={name}
-          pl={70}
-          onInput={handleInput}
-        />
-        <label>{'Name:'}</label>
-      </TodoFormsInputBlock>
+        <TodoFormsInputBlock>
+          <TodoFormsInput
+            type={'text'}
+            name={'name'}
+            value={name}
+            pl={70}
+            onInput={handleInput}
+          />
+          <label>{'Name:'}</label>
+        </TodoFormsInputBlock>
 
-      <TodoFormsInputBlock>
-        <TodoFormsInput
-          type={'password'}
-          name={'psw'}
-          value={psw}
-          pl={100}
-          onInput={handleInput}
-        />
-        <label>{'Password:'}</label>
-      </TodoFormsInputBlock>
+        <TodoFormsInputBlock>
+          <TodoFormsInput
+            type={'password'}
+            name={'psw'}
+            value={psw}
+            pl={100}
+            onInput={handleInput}
+          />
+          <label>{'Password:'}</label>
+        </TodoFormsInputBlock>
 
-      <TodoFormsCheckbox>
-        <Checked
-          checked={checked}
-          onChange={handleChecked}
-          label={'Remember me'}
-        />
-      </TodoFormsCheckbox>
+        <TodoFormsCheckbox>
+          <Checked
+            checked={checked}
+            onChange={handleChecked}
+            label={'Remember me'}
+          />
+        </TodoFormsCheckbox>
 
-      <TodoFormsButtonsWrapper>
-        <TodoFormsButton accent>
-          {'Sign in'}
-        </TodoFormsButton>
-
-        <NavLink to={'/registration'}>
-          <TodoFormsButton accent={false}>
-            {'Registration'}
+        <TodoFormsButtonsWrapper>
+          <TodoFormsButton accent>
+            {'Sign in'}
           </TodoFormsButton>
-        </NavLink>
-      </TodoFormsButtonsWrapper>
 
-      <TodoFormsGuest onClick={handleGuest}>
-        {'Continue as a guest'}
-      </TodoFormsGuest>
-    </TodoFormsWrapper>
+          <NavLink to={'/registration'}>
+            <TodoFormsButton accent={false}>
+              {'Registration'}
+            </TodoFormsButton>
+          </NavLink>
+        </TodoFormsButtonsWrapper>
+
+        <TodoFormsGuest onClick={handleGuest}>
+          {'Continue as a guest'}
+        </TodoFormsGuest>
+      </TodoFormsWrapper>
+
+      <TodoFormsImgContainer>
+        <img src={'./resources/bgi-1.jpg'} alt={'background-image'}/>
+      </TodoFormsImgContainer>
+
+    </TodoFormsContent>
   );
 }
