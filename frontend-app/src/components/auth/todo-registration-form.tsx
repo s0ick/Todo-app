@@ -1,7 +1,7 @@
 import React, {useCallback, useState} from 'react';
 import {NavLink} from 'react-router-dom';
 
-import {PageSubtitle} from '../../common/styled/ui-components';
+import {PageButton, PageSubtitle} from '../../common/styled/ui-components';
 import {SUBTITLE} from '../../utils/content-constants';
 
 import {
@@ -10,7 +10,6 @@ import {
   TodoFormsTitle,
   TodoFormsInputBlock,
   TodoFormsInput,
-  TodoFormsButton,
   TodoFormsButtonsWrapper,
   TodoFormsImgContainer
 } from './todo-forms.styled';
@@ -85,14 +84,14 @@ export function TodoRegistrationForm() {
         </TodoFormsInputBlock>
 
         <TodoFormsButtonsWrapper>
-          <TodoFormsButton accent onClick={handleClick}>
+          <PageButton accent onClick={handleClick}>
             {'Registration'}
-          </TodoFormsButton>
+          </PageButton>
 
           <NavLink to={'/auth'}>
-            <TodoFormsButton accent={false}>
+            <PageButton accent={false}>
               {'Back'}
-            </TodoFormsButton>
+            </PageButton>
           </NavLink>
         </TodoFormsButtonsWrapper>
       </TodoFormsWrapper>

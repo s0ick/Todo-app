@@ -6,10 +6,14 @@ interface NotificationProps {
   type: string,
   message: string,
   id: string,
-  title?: string
+  title?: string,
+  delay?: number
 }
 
-export const Notifications: FC<NotificationProps> = ({dispatch, type, message, id, title}) => {
+export const Notifications: FC<NotificationProps> = ({
+  dispatch, type, message,
+  id, title, delay = 20
+}) => {
   const [exit, setExit] = useState<boolean>(false);
   const [width, setWidth] = useState<number>(0);
   const [intervalID, setIntervalID] = useState<NodeJS.Timer>(setInterval(() => {}, 0));
@@ -25,7 +29,7 @@ export const Notifications: FC<NotificationProps> = ({dispatch, type, message, i
           clearInterval(id);
           return prev;
         });
-      }, 20);
+      }, delay);
 
       setIntervalID(id);
     }, []

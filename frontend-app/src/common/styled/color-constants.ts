@@ -9,7 +9,7 @@ export const Themes = {
     successful: '#00E676',
     successfulLight: '#69F0AE',
     iconList: '#00E5FF',
-    iconComplete: '#76FF03',
+    iconSettings: '#76FF03',
     iconStat: '#FFEA00',
     error: '#FF1744',
     form: 'rgba(238, 238, 238, .5)'
@@ -24,7 +24,7 @@ export const Themes = {
     successful: '#00C853',
     successfulLight: '#00E676',
     iconList: '#18FFFF',
-    iconComplete: '#B2FF59',
+    iconSettings: '#B2FF59',
     iconStat: '#EEFF41',
     error: '#FF1744',
     form: 'rgba(55, 71, 79, .5)'

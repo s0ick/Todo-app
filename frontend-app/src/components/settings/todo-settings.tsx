@@ -2,10 +2,10 @@ import React from 'react';
 
 import {PageWrapperContent} from '../../common/styled/ui-components';
 
-export function TodoCompleted() {
+export function TodoSettings() {
   return (
     <PageWrapperContent>
-      {'Completed'}
+      {'Settings'}
     </PageWrapperContent>
   );
 }

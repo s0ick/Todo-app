@@ -1,7 +1,7 @@
 import React from 'react';
 import {NavLink, useLocation} from 'react-router-dom';
 
-import {IconComplete, IconList, IconStatistic} from '../../common/ui-components/icons';
+import {IconList, IconSettings, IconStatistic} from '../../common/ui-components/icons';
 
 import {
   TodoNavigationMenu,
@@ -12,7 +12,7 @@ import {
 
 enum LINKS {
   TASKS = '/tasks',
-  COMP = '/completed',
+  SETT = '/settings',
   STAT = '/statistics'
 }
 
@@ -30,12 +30,12 @@ export const TodoNavigation = () => {
       <TodoNavigationMenu>
         <ul>
           <TodoNavigationList
-            isCurrent={location.pathname === LINKS.COMP}
-            mainColor={COLORS.GREEN}
+            isCurrent={location.pathname === LINKS.STAT}
+            mainColor={COLORS.YELLOW}
           >
-            <NavLink to={LINKS.COMP}>
-              <TodoNavigationIcon mainColor={COLORS.GREEN}>
-                <IconComplete/>
+            <NavLink to={LINKS.STAT}>
+              <TodoNavigationIcon mainColor={COLORS.YELLOW}>
+                <IconStatistic/>
               </TodoNavigationIcon>
             </NavLink>
           </TodoNavigationList>
@@ -52,12 +52,12 @@ export const TodoNavigation = () => {
           </TodoNavigationList>
 
           <TodoNavigationList
-            isCurrent={location.pathname === LINKS.STAT}
-            mainColor={COLORS.YELLOW}
+            isCurrent={location.pathname === LINKS.SETT}
+            mainColor={COLORS.GREEN}
           >
-            <NavLink to={LINKS.STAT}>
-              <TodoNavigationIcon mainColor={COLORS.YELLOW}>
-                <IconStatistic/>
+            <NavLink to={LINKS.SETT}>
+              <TodoNavigationIcon mainColor={COLORS.GREEN}>
+                <IconSettings/>
               </TodoNavigationIcon>
             </NavLink>
           </TodoNavigationList>

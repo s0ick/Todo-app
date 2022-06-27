@@ -21,12 +21,14 @@ interface NoteProps {
   message: string,
   id: string,
   title?: string
+  delay?: number
 }
 
 interface NotificationProps {
   type: string,
   message: string,
-  title?: string
+  title?: string,
+  delay?: number
 }
 
 const NotificationContext = createContext<Dispatch<ActionProps | null> | null>(null);
@@ -51,7 +53,7 @@ export const NotificationsProvider: FC<ProviderProps> = ({children}) => {
       {children}
     </NotificationContext.Provider>
   );
-}
+};
 
 export const useNotification = () => {
   const dispatch = useContext(NotificationContext);

@@ -3,15 +3,16 @@ import {NavLink} from 'react-router-dom';
 
 import {Checked} from '../../common/ui-components/checked';
 import {useNotification} from '../../common/ui-components/notifications/notifications-provider';
-import {PageSubtitle} from '../../common/styled/ui-components';
+import {PageButton, PageSubtitle} from '../../common/styled/ui-components';
 import {SUBTITLE} from '../../utils/content-constants';
+
+import {DateBlock, LocalStorageKeys} from '../todo-page';
 
 import {
   TodoFormsWrapper,
   TodoFormsTitle,
   TodoFormsInputBlock,
   TodoFormsInput,
-  TodoFormsButton,
   TodoFormsButtonsWrapper,
   TodoFormsCheckbox,
   TodoFormsGuest,
@@ -21,14 +22,15 @@ import {
 
 interface FormProps {
   setIsGuest: () => void;
+  setTasks: (tasks: Array<DateBlock>) => void;
 }
 
-export const TodoAuthForm: FC<FormProps> = ({setIsGuest}) => {
+export const TodoAuthForm: FC<FormProps> = ({setIsGuest, setTasks}) => {
   const [name, setName] = useState('');
   const [psw, setPsw] = useState('');
   const [checked, setChecked] = useState(false);
 
-  const dispatch = useNotification();
+  const notification = useNotification();
 
   const handleInput = useCallback(
     (event: React.FormEvent<EventTarget>) => {
@@ -54,13 +56,18 @@ export const TodoAuthForm: FC<FormProps> = ({setIsGuest}) => {
 
   const handleGuest = useCallback(
     () => {
+      const tasks: Array<DateBlock> = JSON.parse(localStorage.getItem(LocalStorageKeys.TASKS) ?? '[]');
+
       setIsGuest();
-      dispatch({
+      setTasks(tasks);
+
+      notification({
         type: 'SUCCESS',
         message: 'You are logged in as a guest. Data will be stored in local storage',
-        title: 'Welcome'
+        title: 'Welcome',
+        delay: 30
       });
-    }, [setIsGuest, dispatch]
+    }, [setIsGuest, notification]
   );
 
   return (
@@ -100,14 +107,14 @@ export const TodoAuthForm: FC<FormProps> = ({setIsGuest}) => {
         </TodoFormsCheckbox>
 
         <TodoFormsButtonsWrapper>
-          <TodoFormsButton accent>
+          <PageButton accent>
             {'Sign in'}
-          </TodoFormsButton>
+          </PageButton>
 
           <NavLink to={'/registration'}>
-            <TodoFormsButton accent={false}>
+            <PageButton accent={false}>
               {'Registration'}
-            </TodoFormsButton>
+            </PageButton>
           </NavLink>
         </TodoFormsButtonsWrapper>
 

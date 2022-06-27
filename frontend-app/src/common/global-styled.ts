@@ -20,7 +20,7 @@ export const GlobalStyles = createGlobalStyle<{theme: ThemeType }>`
     text-decoration: none;
   }
   
-  body {
+  body, textarea {
     background-color: ${props => props.theme.background};
     color: ${props => props.theme.text};
     

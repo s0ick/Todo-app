@@ -7,6 +7,10 @@ interface NotificationsStylesProps {
   exit: boolean
 }
 
+interface ButtonProps {
+  accent?: boolean
+}
+
 export const PageWrapper = styled.div`
   padding: 20px;
   position: relative;
@@ -85,7 +89,7 @@ export const PageContent = styled.div`
 
 export const PageWrapperContent = styled.div`
   background-color: ${props => props.theme.secondaryBackground};
-  padding: 15px;
+  padding: 20px;
   height: calc(100vh - 140px);
   border-radius: 12px;
   overflow: auto;
@@ -183,5 +187,28 @@ export const NotificationItem = styled.div<NotificationsStylesProps>`
   div {
     background-color: ${props => props.isSuccess ? props.theme.successful : props.theme.error};
     height: 5px;
+  }
+`;
+
+export const PageButton = styled.div<ButtonProps>`
+  margin-top: 40px;
+  margin-right: 10px;
+  
+  font-size: 20px;
+  line-height: 30px;
+  letter-spacing: 0.03em;
+  font-weight: 400;
+  padding: 10px 40px;
+  
+
+  background-color: ${props => props.accent ? props.theme.successful : props.theme.action};
+  border-radius: 12px;
+  color: ${props => props.theme.text};
+  
+  transition: background-color 0.2s ease-in, color 0.2s ease-in;
+  
+  :hover {
+    cursor: pointer;
+    background-color: ${props => props.accent ? props.theme.successfulLight : props.theme.secondaryAction};
   }
 `;

@@ -70,7 +70,7 @@ export const TodoNavigationList = styled.li<StyleProps>`
     
     switch (props.mainColor) {
       case 'green':
-        color = props.theme.iconComplete;
+        color = props.theme.iconSettings;
         break;
       case 'blue':
         color = props.theme.iconList;
@@ -120,8 +120,8 @@ export const TodoNavigationIcon = styled.span<StyleProps>`
     content: '';
     position: absolute;
     
-    top: 10px;
-    left: 0;
+    top: 6px;
+    left: -1px;
     
     width: 100%;
     height: 100%;
@@ -129,7 +129,7 @@ export const TodoNavigationIcon = styled.span<StyleProps>`
     background-color: ${props => {
       switch (props.mainColor) {
         case 'green':
-          return props.theme.iconComplete;
+          return props.theme.iconSettings;
         case 'blue':
           return props.theme.iconList;
         case 'yellow':

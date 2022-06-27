@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 interface StyledProps {
   pl?: number,
-  accent?: boolean
 }
 
 export const TodoFormsContent = styled.div`
@@ -64,7 +63,7 @@ export const TodoFormsInput = styled.input<StyledProps>`
 
   outline: none;
   border: none;
-  border-bottom: 2px solid ${props => props.theme.text};
+  border-bottom: 1px solid ${props => props.theme.text};
   
   padding: 10px;
   padding-left: ${props => `${props.pl}px`};
@@ -75,7 +74,7 @@ export const TodoFormsInput = styled.input<StyledProps>`
   transition: border-bottom 0.2s ease-in, padding-left 0.2s ease-in, color 0.2s ease-in;
   
   :focus {
-    border-bottom: 2px solid ${props => props.theme.action};
+    border-bottom: 1px solid ${props => props.theme.action};
     padding-left: 10px;
   }
   
@@ -100,29 +99,6 @@ export const TodoFormsButtonsWrapper = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
-`;
-
-export const TodoFormsButton = styled.div<StyledProps>`
-  margin-top: 40px;
-  margin-right: 10px;
-  
-  font-size: 20px;
-  line-height: 30px;
-  letter-spacing: 0.03em;
-  font-weight: 400;
-  padding: 10px 40px;
-  
-
-  background-color: ${props => props.accent ? props.theme.successful : props.theme.action};
-  border-radius: 12px;
-  color: ${props => props.theme.text};
-  
-  transition: background-color 0.2s ease-in, color 0.2s ease-in;
-  
-  :hover {
-    cursor: pointer;
-    background-color: ${props => props.accent ? props.theme.successfulLight : props.theme.secondaryAction};
-  }
 `;
 
 export const TodoFormsGuest = styled.div`
