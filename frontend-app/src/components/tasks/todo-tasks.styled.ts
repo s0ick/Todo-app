@@ -96,7 +96,7 @@ export const TodoTasksListCompleted = styled.div`
   p {
     color: ${props => props.theme.secondaryText};
     transition: color 0.2s ease-in;
-    padding-left: 18px;
+    padding-left: 28px;
   }
   
   div {

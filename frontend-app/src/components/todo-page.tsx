@@ -75,29 +75,28 @@ export function TodoPage() {
 
   const createNewTask = useCallback(
     (task: Task): void => {
-      setTasks(prevState => {
-        if (!prevState.length) {
-          return [{
-            date: getFormattedDate(task.dateCreated),
-            isHide: true,
-            tasks: [{
-              id: `${getFormattedDate(task.dateCreated)}_id_1`,
-              ...task
-            }]
-          }];
-        }
+      const targetDateBlock = tasks.find(dateBlock => dateBlock.date === getFormattedDate(task.dateCreated));
 
-        return prevState.map(dateBlock => {
-          if (dateBlock.date === getFormattedDate(task.dateCreated)) {
-            dateBlock.tasks.push({
-              id: `${dateBlock.date}_id_${dateBlock.tasks.length + 1}`,
-              ...task
-            });
-          }
-          return dateBlock;
+      if (targetDateBlock) {
+        targetDateBlock.tasks.push({
+          id: `${targetDateBlock.date}_id_${targetDateBlock.tasks.length + 1}`,
+          ...task
         });
-      });
-    }, []
+
+        const otherTasks = tasks.filter(dateBlock => dateBlock.date !== targetDateBlock.date);
+        setTasks([...otherTasks, targetDateBlock]);
+        return;
+      }
+
+      setTasks([...tasks, {
+        date: getFormattedDate(task.dateCreated),
+        isHide: true,
+        tasks: [{
+          id: `${getFormattedDate(task.dateCreated)}_id_1`,
+          ...task
+        }]
+      }]);
+    }, [tasks]
   );
 
   const hideDateBlock = useCallback(
@@ -227,7 +226,12 @@ export function TodoPage() {
                 {!isGuest &&
                   <>
                     <Route path={'/'} element={<Navigate to={'/auth'}/>}/>
-                    <Route path={'/auth'} element={<TodoAuthForm setIsGuest={handleGuest} setTasks={setTasks}/>}/>
+                    <Route path={'/auth'} element={
+                      <TodoAuthForm
+                        setIsGuest={handleGuest}
+                        setTasks={setTasks}
+                      />
+                    }/>
                     <Route path={'/registration'} element={<TodoRegistrationForm/>}/>
                   </>
                 }
