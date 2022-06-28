@@ -81,7 +81,10 @@ export const TodoTasks: FC<TodoTasksProps> = ({
             isHide={dateBlock.isHide}
           >
 
-            <TodoTasksPanelControl onClick={() => hideDateBlock(dateBlock.date)}>
+            <TodoTasksPanelControl
+              isCompleted={getCompletedListLength(dateBlock.tasks) === dateBlock.tasks.length}
+              onClick={() => hideDateBlock(dateBlock.date)}
+            >
               <TodoTasksArrow isHide={dateBlock.isHide}>
                 <IconArrow/>
               </TodoTasksArrow>

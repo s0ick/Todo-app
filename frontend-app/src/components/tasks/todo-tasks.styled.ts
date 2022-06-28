@@ -8,13 +8,17 @@ interface IconProps {
   isEditMode?: boolean
 }
 
+interface PanelControlProps {
+  isCompleted: boolean
+}
+
 export const TodoTasksWrapper = styled.div`
   display: flex;
   flex-direction: column;
 `;
 
 export const TodoTaskWrapper = styled.div`
-  padding: 15px;
+  padding: 10px;
   padding-left: 20px;
 
   display: flex;
@@ -25,19 +29,21 @@ export const TodoTasksDateBlock = styled.div<DateBlockProps>`
   overflow: hidden;
   height: ${props => props.isHide ? `60px` : 'auto'};
   color: ${props => props.theme.text};
-  border-bottom: 1px solid ${props => props.theme.background};
   padding: 15px;
-  transition: color .2s ease-in, border-bottom .2s ease-in;
+  transition: color .2s ease-in;
   
   display: flex;
   flex-direction: column;
 `;
 
-export const TodoTasksPanelControl = styled.div`
+export const TodoTasksPanelControl = styled.div<PanelControlProps>`
   display: flex;
   align-items: center;
   justify-content: flex-start;
   margin-bottom: 20px;
+  
+  color: ${props => props.isCompleted ? props.theme.secondaryText : props.theme.text};
+  transition: color .2s ease-in;
   
   :hover {
     cursor: pointer;

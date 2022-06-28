@@ -84,18 +84,18 @@ export function TodoPage() {
         });
 
         const otherTasks = tasks.filter(dateBlock => dateBlock.date !== targetDateBlock.date);
-        setTasks([...otherTasks, targetDateBlock]);
+        setTasks([targetDateBlock, ...otherTasks]);
         return;
       }
 
-      setTasks([...tasks, {
+      setTasks([{
         date: getFormattedDate(task.dateCreated),
         isHide: true,
         tasks: [{
           id: `${getFormattedDate(task.dateCreated)}_id_1`,
           ...task
         }]
-      }]);
+      }, ...tasks]);
     }, [tasks]
   );
 
