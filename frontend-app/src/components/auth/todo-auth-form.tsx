@@ -3,14 +3,16 @@ import {NavLink} from 'react-router-dom';
 
 import {Checked} from '../../common/ui-components/checked';
 import {useNotification} from '../../common/ui-components/notifications/notifications-provider';
-import {PageButton, PageSubtitle} from '../../common/styled/ui-components';
-import {SUBTITLE} from '../../utils/content-constants';
+import {PageButton} from '../../common/styled/ui-components';
+import {Content} from '../../utils/content-constants';
+import {LocalStorageKeys, NotificationTypes} from '../../utils/constants';
 
-import {DateBlock, LocalStorageKeys} from '../todo-page';
+import {DateBlock} from '../todo-page';
 
 import {
   TodoFormsWrapper,
   TodoFormsTitle,
+  TodoFormsSubtitle,
   TodoFormsInputBlock,
   TodoFormsInput,
   TodoFormsButtonsWrapper,
@@ -62,9 +64,9 @@ export const TodoAuthForm: FC<FormProps> = ({setIsGuest, setTasks}) => {
       setTasks(tasks);
 
       notification({
-        type: 'SUCCESS',
-        message: 'You are logged in as a guest. Data will be stored in local storage',
-        title: 'Welcome',
+        type: NotificationTypes.SUC,
+        message: Content.NOTIFICATION.LOGIN.GUEST.TEXT.EN,
+        title: Content.NOTIFICATION.LOGIN.GUEST.TITLE.EN,
         delay: 30
       });
     }, [setIsGuest, notification]
@@ -73,8 +75,8 @@ export const TodoAuthForm: FC<FormProps> = ({setIsGuest, setTasks}) => {
   return (
     <TodoFormsContent>
       <TodoFormsWrapper>
-        <TodoFormsTitle>{'Authorization'}</TodoFormsTitle>
-        <PageSubtitle>{SUBTITLE}</PageSubtitle>
+        <TodoFormsTitle>{Content.AUTH.TITLE.EN}</TodoFormsTitle>
+        <TodoFormsSubtitle>{Content.AUTH.SUBTITLE.EN}</TodoFormsSubtitle>
 
         <TodoFormsInputBlock>
           <TodoFormsInput
@@ -84,7 +86,7 @@ export const TodoAuthForm: FC<FormProps> = ({setIsGuest, setTasks}) => {
             pl={70}
             onInput={handleInput}
           />
-          <label>{'Name:'}</label>
+          <label>{Content.AUTH.FIELDS.NAME.EN}</label>
         </TodoFormsInputBlock>
 
         <TodoFormsInputBlock>
@@ -95,31 +97,31 @@ export const TodoAuthForm: FC<FormProps> = ({setIsGuest, setTasks}) => {
             pl={100}
             onInput={handleInput}
           />
-          <label>{'Password:'}</label>
+          <label>{Content.AUTH.FIELDS.PSW.EN}</label>
         </TodoFormsInputBlock>
 
         <TodoFormsCheckbox>
           <Checked
             checked={checked}
             onChange={handleChecked}
-            label={'Remember me'}
+            label={Content.AUTH.ACTIONS.REM_ME.EN}
           />
         </TodoFormsCheckbox>
 
         <TodoFormsButtonsWrapper>
           <PageButton accent>
-            {'Sign in'}
+            {Content.AUTH.ACTIONS.LOGIN.EN}
           </PageButton>
 
           <NavLink to={'/registration'}>
             <PageButton accent={false}>
-              {'Registration'}
+              {Content.AUTH.ACTIONS.REG.EN}
             </PageButton>
           </NavLink>
         </TodoFormsButtonsWrapper>
 
         <TodoFormsGuest onClick={handleGuest}>
-          {'Continue as a guest'}
+          {Content.AUTH.ACTIONS.GUEST.EN}
         </TodoFormsGuest>
       </TodoFormsWrapper>
 

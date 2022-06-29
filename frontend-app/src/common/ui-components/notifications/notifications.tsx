@@ -1,4 +1,5 @@
 import React, {FC, useState, useEffect, useCallback} from 'react';
+
 import {NotificationItem} from '../../styled/ui-components';
 
 interface NotificationProps {

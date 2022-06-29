@@ -1,10 +1,10 @@
 import React, {FC, SyntheticEvent, useCallback, useEffect, useRef, useState} from 'react';
 
 import {IconBack, IconComplete, IconDelete, IconEdit} from '../../common/ui-components/icons';
+import {Actions, TypesList} from '../../utils/constants';
 
-import {Actions, Task} from '../todo-page';
+import {Task} from '../todo-page';
 
-import {TypesList} from './todo-tasks';
 import {
   TodoTasksActions,
   TodoTasksIcon,

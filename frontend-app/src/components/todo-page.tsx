@@ -6,8 +6,8 @@ import {NotificationsProvider} from '../common/ui-components/notifications/notif
 import {IconThemeMode} from '../common/ui-components/icons';
 import {Spinner} from '../common/ui-components/spinner';
 import {getFormattedDate} from '../utils/utils';
-import {TITLE} from '../utils/content-constants';
 import {GlobalStyles} from '../common/global-styled';
+import {Actions, ThemeModes, LocalStorageKeys} from '../utils/constants';
 import {Themes} from '../common/styled/color-constants';
 import {
   PageWrapper,
@@ -23,22 +23,6 @@ import {TodoTasks} from './tasks/todo-tasks';
 import {TodoSettings} from './settings/todo-settings';
 import {TodoStatistics} from './statistics/todo-statistics';
 
-enum ThemeModes {
-  LIGHT = 'light',
-  DARK = 'dark'
-}
-
-export enum Actions {
-  CHANGE_STATUS = 'changeStatus',
-  DELETE = 'delete',
-  EDIT = 'edit'
-}
-
-export enum LocalStorageKeys {
-  THEME = 'TODO_APP_THEME',
-  TASKS = 'TODO_APP_TASKS'
-}
-
 export interface Task {
   id?: string
   dateCreated: Date,
@@ -51,6 +35,11 @@ export interface DateBlock {
   date: string,
   isHide: boolean,
   tasks: Array<Task>
+}
+
+export interface PiesColors {
+  outer: Array<string>,
+  inner: Array<string>
 }
 
 export function TodoPage() {
@@ -169,8 +158,17 @@ export function TodoPage() {
     }, [isLightMode]
   );
 
+  const piesColors = useMemo(
+    (): PiesColors => {
+      return {
+        outer: [Themes[theme].secondaryAction, Themes[theme].successfulLight],
+        inner: [Themes[theme].actionRGBA, Themes[theme].successfulRGBA]
+      }
+    }, [theme]
+  );
+
   useEffect((): void => {
-    const mode = localStorage.getItem(LocalStorageKeys.THEME);
+    const mode: string | null = localStorage.getItem(LocalStorageKeys.THEME);
     setIsLightMode(mode === 'true');
   }, []);
 
@@ -187,8 +185,8 @@ export function TodoPage() {
 
         <PageWrapper>
           <PageTitle>
-            <div>{TITLE[0]}</div>
-            <span>{TITLE[1]}</span>
+            <div>{'To Do'}</div>
+            <span>{'App'}</span>
           </PageTitle>
 
           <PageTheme onClick={_toggleMode}>
@@ -199,17 +197,15 @@ export function TodoPage() {
             <Suspense fallback={<Spinner/>}>
               {isGuest && <TodoNavigation/>}
               <Routes>
-                {!isGuest &&
-                  <>
-                    <Route path={'/tasks'} element={<Navigate to={'/auth'}/>}/>
-                    <Route path={'/settings'} element={<Navigate to={'/auth'}/>}/>
-                    <Route path={'/statistics'} element={<Navigate to={'/auth'}/>}/>
-                  </>
-                }
-
                 {isGuest &&
                   <>
                     <Route path={'/auth'} element={<Navigate to={'/tasks'}/>}/>
+                    <Route path={'/statistics'} element={
+                      <TodoStatistics
+                        tasks={tasks}
+                        piesColors={piesColors}
+                      />}
+                    />
                     <Route path={'/tasks'} element={
                       <TodoTasks
                         tasks={tasks}
@@ -219,13 +215,16 @@ export function TodoPage() {
                       />
                     }/>
                     <Route path={'/settings'} element={<TodoSettings/>}/>
-                    <Route path={'/statistics'} element={<TodoStatistics/>}/>
                   </>
                 }
 
                 {!isGuest &&
                   <>
+                    <Route path={'/tasks'} element={<Navigate to={'/auth'}/>}/>
+                    <Route path={'/settings'} element={<Navigate to={'/auth'}/>}/>
+                    <Route path={'/statistics'} element={<Navigate to={'/auth'}/>}/>
                     <Route path={'/'} element={<Navigate to={'/auth'}/>}/>
+
                     <Route path={'/auth'} element={
                       <TodoAuthForm
                         setIsGuest={handleGuest}

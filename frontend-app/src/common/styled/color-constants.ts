@@ -12,7 +12,9 @@ export const Themes = {
     iconSettings: '#76FF03',
     iconStat: '#FFEA00',
     error: '#FF1744',
-    form: 'rgba(238, 238, 238, .5)'
+    form: 'rgba(238, 238, 238, .5)',
+    actionRGBA: 'rgba(66, 165, 245, .8)',
+    successfulRGBA: 'rgba(0, 230, 118, .8)'
   },
   dark: {
     background: '#263238',
@@ -27,8 +29,13 @@ export const Themes = {
     iconSettings: '#B2FF59',
     iconStat: '#EEFF41',
     error: '#FF1744',
-    form: 'rgba(55, 71, 79, .5)'
+    form: 'rgba(55, 71, 79, .5)',
+    actionRGBA: 'rgba(100, 181, 246, .8)',
+    successfulRGBA: 'rgba(0, 230, 118, .8)'
   }
 };
 
-export const TRANSPARENT = 'transparent';
+export const Colors = {
+  WHITE: '#FFFFFF',
+  TRANSPARENT: 'transparent'
+};

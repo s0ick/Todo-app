@@ -34,6 +34,16 @@ export const TodoFormsTitle = styled.h2`
   margin-bottom: 10px;
 `;
 
+export const TodoFormsSubtitle = styled.p`
+  margin: 0;
+  margin-top: 8px;
+  padding: 0;
+
+  font-size: 18px;
+  color: ${props => props.theme.secondaryText};
+  transition: color 0.2s ease-in;
+`;
+
 export const TodoFormsInputBlock = styled.div`
   position: relative;
   

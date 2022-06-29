@@ -1,8 +1,8 @@
 import React, {useCallback, useState} from 'react';
 import {NavLink} from 'react-router-dom';
 
-import {PageButton, PageSubtitle} from '../../common/styled/ui-components';
-import {SUBTITLE} from '../../utils/content-constants';
+import {PageButton} from '../../common/styled/ui-components';
+import {Content} from '../../utils/content-constants';
 
 import {
   TodoFormsContent,
@@ -11,7 +11,7 @@ import {
   TodoFormsInputBlock,
   TodoFormsInput,
   TodoFormsButtonsWrapper,
-  TodoFormsImgContainer
+  TodoFormsImgContainer, TodoFormsSubtitle
 } from './todo-forms.styled';
 
 export function TodoRegistrationForm() {
@@ -47,8 +47,8 @@ export function TodoRegistrationForm() {
   return (
     <TodoFormsContent>
       <TodoFormsWrapper>
-        <TodoFormsTitle>{'Registration'}</TodoFormsTitle>
-        <PageSubtitle>{SUBTITLE}</PageSubtitle>
+        <TodoFormsTitle>{Content.REG.TITLE.EN}</TodoFormsTitle>
+        <TodoFormsSubtitle>{Content.REG.SUBTITLE.EN}</TodoFormsSubtitle>
 
         <TodoFormsInputBlock>
           <TodoFormsInput
@@ -58,7 +58,7 @@ export function TodoRegistrationForm() {
             pl={70}
             onInput={handleInput}
           />
-          <label>{'Name:'}</label>
+          <label>{Content.REG.FIELDS.NAME.EN}</label>
         </TodoFormsInputBlock>
 
         <TodoFormsInputBlock>
@@ -69,7 +69,7 @@ export function TodoRegistrationForm() {
             pl={100}
             onInput={handleInput}
           />
-          <label>{'Password:'}</label>
+          <label>{Content.REG.FIELDS.PSW.EN}</label>
         </TodoFormsInputBlock>
 
         <TodoFormsInputBlock>
@@ -80,17 +80,17 @@ export function TodoRegistrationForm() {
             pl={160}
             onInput={handleInput}
           />
-          <label>{'Repeat password:'}</label>
+          <label>{Content.REG.FIELDS.R_PSW.EN}</label>
         </TodoFormsInputBlock>
 
         <TodoFormsButtonsWrapper>
           <PageButton accent onClick={handleClick}>
-            {'Registration'}
+            {Content.REG.ACTIONS.REG.EN}
           </PageButton>
 
           <NavLink to={'/auth'}>
             <PageButton accent={false}>
-              {'Back'}
+              {Content.REG.ACTIONS.BACK.EN}
             </PageButton>
           </NavLink>
         </TodoFormsButtonsWrapper>

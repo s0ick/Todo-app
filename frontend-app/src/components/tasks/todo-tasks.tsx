@@ -4,8 +4,9 @@ import {IconArrow} from '../../common/ui-components/icons';
 import {getCompletedListLength} from '../../utils/utils';
 import {useNotification} from '../../common/ui-components/notifications/notifications-provider';
 import {PageWrapperContent} from '../../common/styled/ui-components';
+import {Actions, NotificationTypes, TypesList} from '../../utils/constants';
 
-import {Actions, DateBlock, Task} from '../todo-page';
+import {DateBlock, Task} from '../todo-page';
 
 import {TodoTaskForm} from './form/todo-task-form';
 import {TodoTasksItem} from './todo-tasks-item';
@@ -20,17 +21,13 @@ import {
   TodoTasksListActive,
   TodoTasksListCompleted
 } from './todo-tasks.styled';
+import {Content} from '../../utils/content-constants';
 
 interface TodoTasksProps {
   tasks: Array<DateBlock>,
   setTask: (task: Task) => void,
   hideDateBlock: (date: string) => void,
   actionsForTasks: (actions: Actions, date: string, task: Task, newMessage?: string) => void,
-}
-
-export enum TypesList {
-  COMP = 'completed',
-  ACT = 'active'
 }
 
 export const TodoTasks: FC<TodoTasksProps> = ({
@@ -45,23 +42,23 @@ export const TodoTasks: FC<TodoTasksProps> = ({
       switch (action) {
         case Actions.CHANGE_STATUS:
           notification({
-            type: 'SUCCESS',
-            title: `Task ${!task.completed ? 'returned' : 'completed'}`,
-            message: `Task added to the list of ${!task.completed ? 'active' : 'completed'} tasks`,
+            type: NotificationTypes.SUC,
+            title: Content.NOTIFICATION.TASKS.CHANGE.TITLE.EN,
+            message: Content.NOTIFICATION.TASKS.CHANGE.TEXT.EN,
             delay: 20
           });
           break;
         case Actions.DELETE:
           notification({
-            type: 'SUCCESS',
-            message: 'Task removed',
+            type: NotificationTypes.SUC,
+            message: Content.NOTIFICATION.TASKS.DEL.EN,
             delay: 20
           });
           break;
         case Actions.EDIT:
           notification({
-            type: 'SUCCESS',
-            message: 'Task updated',
+            type: NotificationTypes.SUC,
+            message: Content.NOTIFICATION.TASKS.EDIT.EN,
             delay: 20
           });
           break;
@@ -114,7 +111,7 @@ export const TodoTasks: FC<TodoTasksProps> = ({
                           />
                         );
                       }
-                      return <React.Fragment key={`date_${dateBlock.date}_id_${task.id}_plug`}/>;
+                      return null;
                     })}
                   </TodoTasksListActive>
 
@@ -132,7 +129,7 @@ export const TodoTasks: FC<TodoTasksProps> = ({
                         );
                       }
 
-                      return <React.Fragment key={`date_${dateBlock.date}_id_${task.id}_plug`}/>;
+                      return null;
                     })}
                   </TodoTasksListCompleted>
                 </>
