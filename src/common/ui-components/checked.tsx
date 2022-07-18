@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {FC, memo} from 'react';
 import styled from 'styled-components';
 
 import {Colors} from '../styled/color-constants';
@@ -62,7 +62,7 @@ const CheckboxContainer = styled.div`
   vertical-align: middle;
 `;
 
-export const Checked: FC<ComponentProps> = ({checked, label, ...props}) => (
+export const Checked: FC<ComponentProps> = memo(({checked, label, ...props}) => (
   <CheckboxWrapper disabled={props.disabled}>
     <CheckboxContainer>
       <HiddenCheckbox checked={checked} {...props}/>
@@ -72,4 +72,4 @@ export const Checked: FC<ComponentProps> = ({checked, label, ...props}) => (
     </CheckboxContainer>
     {label && <span>{label}</span>}
   </CheckboxWrapper>
-);
+));

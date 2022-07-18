@@ -15,7 +15,7 @@ const fromLeaveTransition = ({ endAngle }: PieArcDatum<any>) => ({
   opacity: 0
 });
 
-const enterUpdateTransition = ({ startAngle, endAngle }: PieArcDatum<any>) => ({
+const enterUpdateTransition = ({startAngle, endAngle}: PieArcDatum<any>) => ({
   startAngle,
   endAngle,
   opacity: 1

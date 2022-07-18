@@ -1,7 +1,7 @@
-import React, {FC, useMemo} from 'react';
+import React, {FC, memo, useMemo} from 'react';
 import {useTooltip, useTooltipInPortal, defaultStyles} from '@visx/tooltip';
-import {GradientPinkBlue} from '@visx/gradient';
 import {scaleBand, scaleLinear, scaleOrdinal} from '@visx/scale';
+import {GradientPinkBlue} from '@visx/gradient';
 import {localPoint} from '@visx/event';
 import {AxisBottom} from '@visx/axis';
 import {BarStack} from '@visx/shape';
@@ -38,7 +38,7 @@ const tooltipStyles = {
 };
 let tooltipTimeout: number;
 
-export const TodoBarStack: FC<TodoBarStackProps> = ({width, height, barStackData}) => {
+export const TodoBarStack: FC<TodoBarStackProps> = memo(({width, height, barStackData}) => {
   if (width < 100 || height < 100) return null;
 
   const {data, max} = barStackData;
@@ -176,4 +176,4 @@ export const TodoBarStack: FC<TodoBarStackProps> = ({width, height, barStackData
       )}
     </TodoBarStackWrapper>
   );
-};
+});

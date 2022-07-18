@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {FC, memo} from 'react';
 import {useTooltip, useTooltipInPortal, defaultStyles} from '@visx/tooltip';
 import {GradientPinkBlue, GradientTealBlue} from '@visx/gradient';
 import Pie from '@visx/shape/lib/shapes/Pie';
@@ -42,9 +42,7 @@ const tooltipStyles = {
 
 let tooltipTimeout: number;
 
-export const TodoPies: FC<PiesProps> = ({
-  data, size, margin = defaultMargin
-}) => {
+export const TodoPies: FC<PiesProps> = memo(({data, size, margin = defaultMargin}) => {
   const getValue = (d: Segment) => d.value;
 
   const outerScale = scaleOrdinal({
@@ -172,4 +170,4 @@ export const TodoPies: FC<PiesProps> = ({
       )}
     </TodoPiesWrapper>
   );
-}
+});

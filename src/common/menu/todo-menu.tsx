@@ -1,7 +1,7 @@
 import React, {FC, memo} from 'react';
 import {NavLink, useLocation} from 'react-router-dom';
 
-import {IconThemeMode, IconList, IconSettings, IconStatistic} from '../../common/ui-components/icons';
+import {IconThemeMode, IconList, IconSettings, IconStatistic} from '../ui-components/icons';
 import {Links} from '../../utils/constants';
 
 import {TodoMenuList, TodoMenuWrapper, TodoMenuIcon, TodoMenuIconNav} from './todo-menu.styled';

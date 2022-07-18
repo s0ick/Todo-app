@@ -21,7 +21,7 @@ import {
 
 import {TodoAuthForm} from './auth/todo-auth-form';
 import {TodoError} from './error/todo-error';
-import {TodoMenu} from './menu/todo-menu';
+import {TodoMenu} from '../common/menu/todo-menu';
 import {TodoTasks} from './tasks/todo-tasks';
 import {TodoDashboard} from './dashboard/todo-dashboard';
 
