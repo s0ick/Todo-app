@@ -42,7 +42,7 @@ export const TodoDashboard: FC<DashboardProps> = memo(({tasks, lang}) => {
           <TodoDashboardBlockSubtitle>
             {Content.PIES.SUBTITLE[lang]}
           </TodoDashboardBlockSubtitle>
-          <TodoPies data={piesData} size={350}/>
+          <TodoPies data={piesData} size={350} lang={lang}/>
         </TodoDashboardBlock>
 
         <TodoDashboardBlock>
@@ -52,7 +52,7 @@ export const TodoDashboard: FC<DashboardProps> = memo(({tasks, lang}) => {
           <TodoDashboardBlockSubtitle>
             {Content.BAR.SUBTITLE[lang]}
           </TodoDashboardBlockSubtitle>
-          <TodoBarStack barStackData={barStackData} width={500} height={350}/>
+          <TodoBarStack barStackData={barStackData} width={500} height={350} lang={lang}/>
         </TodoDashboardBlock>
 
       </TodoDashboardWrapper>

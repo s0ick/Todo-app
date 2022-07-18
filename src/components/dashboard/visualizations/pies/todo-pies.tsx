@@ -1,4 +1,4 @@
-import React, {FC, memo} from 'react';
+import React, {FC, memo, useMemo} from 'react';
 import {useTooltip, useTooltipInPortal, defaultStyles} from '@visx/tooltip';
 import {GradientPinkBlue, GradientTealBlue} from '@visx/gradient';
 import Pie from '@visx/shape/lib/shapes/Pie';
@@ -8,24 +8,25 @@ import {Group} from '@visx/group';
 
 import {TooltipRow, TooltipWrapper} from '../../../../common/styled/ui-components';
 import {Colors} from '../../../../common/styled/color-constants';
-import {PiesTypes} from '../../../../utils/constants';
+import {Languages, PiesTypes} from '../../../../utils/constants';
+import {Content} from '../../../../utils/content-constants';
 import {Segment} from '../../../../utils/pies.utils';
 
-import {TodoPieGroup, TodoPiesWrapper} from '../../todo-dashboard.styled';
+import {TodoChartsPlug, TodoPieGroup, TodoPiesWrapper} from '../../todo-dashboard.styled';
 
 import {AnimatedPie} from './animated-pie';
 
 const defaultMargin = {top: 0, right: 0, bottom: 0, left: 0};
 
 interface PiesData {
-  outer: Array<Segment>,
-  inner: Array<Segment>
+  outer: Array<Segment>;
+  inner: Array<Segment>;
 }
 
 interface PiesProps {
-  data: PiesData,
-  size: number,
-  margin?: typeof defaultMargin
+  data: PiesData;
+  size: number;
+  lang: Languages;
 }
 
 export type TooltipData = {
@@ -42,7 +43,11 @@ const tooltipStyles = {
 
 let tooltipTimeout: number;
 
-export const TodoPies: FC<PiesProps> = memo(({data, size, margin = defaultMargin}) => {
+export const TodoPies: FC<PiesProps> = memo(({data, size, lang}) => {
+  if (size < 40) {
+    return null;
+  }
+
   const getValue = (d: Segment) => d.value;
 
   const outerScale = scaleOrdinal({
@@ -65,15 +70,17 @@ export const TodoPies: FC<PiesProps> = memo(({data, size, margin = defaultMargin
     useTooltip<TooltipData>();
 
   const {containerRef, TooltipInPortal} = useTooltipInPortal({
-    scroll: true,
+    scroll: true
   });
 
-  if (size < 40) {
-    return null;
-  }
+  const weeklyData = useMemo(
+    () => {
+      return data[PiesTypes.INNER][0].value || data[PiesTypes.INNER][1].value;
+    }, [data]
+  );
 
-  const innerWidth = size - margin.left - margin.right;
-  const innerHeight = size - margin.top - margin.bottom;
+  const innerWidth = size - defaultMargin.left - defaultMargin.right;
+  const innerHeight = size - defaultMargin.top - defaultMargin.bottom;
   const radius = Math.min(innerWidth, innerHeight) / 2;
   const centerY = innerHeight / 2;
   const centerX = innerWidth / 2;
@@ -89,8 +96,8 @@ export const TodoPies: FC<PiesProps> = memo(({data, size, margin = defaultMargin
         <GradientTealBlue id={'visx-gradient-teal'} fromOpacity={.5} toOpacity={.7}/>
 
         <Group
-          top={centerY + margin.top}
-          left={centerX + margin.left}
+          top={centerY + defaultMargin.top}
+          left={centerX + defaultMargin.left}
         >
           <Pie
             data={data[PiesTypes.OUTER]}
@@ -123,36 +130,46 @@ export const TodoPies: FC<PiesProps> = memo(({data, size, margin = defaultMargin
               />
             )}
           </Pie>
-          <TodoPieGroup>
-            <Pie
-              data={data[PiesTypes.INNER]}
-              pieValue={getValue}
-              outerRadius={radius - donutThickness * 1.3}
-            >
-              {(pie) => (
-                <AnimatedPie<Segment>
-                  {...pie}
-                  animate
-                  getKey={({data: {label}}) => label}
-                  getColor={({data: {label}}) => innerScale(label)}
-                  onMouseLeave={() => {
-                    tooltipTimeout = window.setTimeout(() => {
-                      hideTooltip();
-                    }, 300);
-                  }}
-                  onMouseMove={(event, data) => {
-                    if (tooltipTimeout) clearTimeout(tooltipTimeout);
-                    const eventSvgCoords = localPoint(event);
-                    showTooltip({
-                      tooltipData: data,
-                      tooltipTop: eventSvgCoords?.y,
-                      tooltipLeft: eventSvgCoords?.x
-                    });
-                  }}
-                />
-              )}
-            </Pie>
-          </TodoPieGroup>
+          {!weeklyData && (
+            <Group>
+              <TodoChartsPlug>
+                <tspan x={0} dy={0}>{Content.PIES.PLUG.START[lang]}</tspan>
+                <tspan x={0} dy={'1.25em'}>{Content.PIES.PLUG.END[lang]}</tspan>
+              </TodoChartsPlug>
+            </Group>
+          )}
+          {weeklyData && (
+            <TodoPieGroup>
+              <Pie
+                data={data[PiesTypes.INNER]}
+                pieValue={getValue}
+                outerRadius={radius - donutThickness * 1.3}
+              >
+                {(pie) => (
+                  <AnimatedPie<Segment>
+                    {...pie}
+                    animate
+                    getKey={({data: {label}}) => label}
+                    getColor={({data: {label}}) => innerScale(label)}
+                    onMouseLeave={() => {
+                      tooltipTimeout = window.setTimeout(() => {
+                        hideTooltip();
+                      }, 300);
+                    }}
+                    onMouseMove={(event, data) => {
+                      if (tooltipTimeout) clearTimeout(tooltipTimeout);
+                      const eventSvgCoords = localPoint(event);
+                      showTooltip({
+                        tooltipData: data,
+                        tooltipTop: eventSvgCoords?.y,
+                        tooltipLeft: eventSvgCoords?.x
+                      });
+                    }}
+                  />
+                )}
+              </Pie>
+            </TodoPieGroup>
+          )}
         </Group>
       </svg>
 

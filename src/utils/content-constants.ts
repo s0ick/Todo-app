@@ -51,6 +51,16 @@ export const Content = {
       EN: 'The outer circle shows all the tasks, and the inner circle shows all the tasks for the current week',
       RU: 'Внешний круг показывает все задачи, а внутренний круг показывает все задачи на текущей неделе'
     },
+    PLUG: {
+      START: {
+        EN: 'No data for',
+        RU: 'Нет данных по'
+      },
+      END: {
+        EN: 'current week',
+        RU: 'текущей неделе'
+      }
+    },
     OUTER: {
       ACT: {
         EN: 'All active',
@@ -82,7 +92,16 @@ export const Content = {
       EN: 'Number of active and completed tasks in the current week',
       RU: 'Количество активных и выполненых задач на текущей неделе'
     },
-
+    PLUG: {
+      START: {
+        EN: 'No data for',
+        RU: 'Нет данных по'
+      },
+      END: {
+        EN: 'current week',
+        RU: 'текущей неделе'
+      }
+    },
     DAYS: {
       MON: {
         EN: 'Mon',

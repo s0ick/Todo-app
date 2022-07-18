@@ -10,8 +10,15 @@ import {Group} from '@visx/group';
 import {IBarStack} from '../../../../utils/bar-stack.utils';
 import {Colors} from '../../../../common/styled/color-constants';
 import {TooltipRow, TooltipWrapper} from '../../../../common/styled/ui-components';
+import {Languages} from '../../../../utils/constants';
 
-import {TodoBarStackGroup, TodoBarStackTickWrapper, TodoBarStackWrapper} from '../../todo-dashboard.styled';
+import {
+  TodoBarStackGroup,
+  TodoBarStackTickWrapper,
+  TodoBarStackWrapper,
+  TodoChartsPlug
+} from '../../todo-dashboard.styled';
+import {Content} from '../../../../utils/content-constants';
 
 interface TodoBarStackData {
   data: Array<IBarStack>;
@@ -21,7 +28,8 @@ interface TodoBarStackData {
 interface TodoBarStackProps {
   width: number;
   height: number;
-  barStackData: TodoBarStackData
+  barStackData: TodoBarStackData;
+  lang: Languages;
 }
 
 export type TooltipData = {
@@ -38,8 +46,10 @@ const tooltipStyles = {
 };
 let tooltipTimeout: number;
 
-export const TodoBarStack: FC<TodoBarStackProps> = memo(({width, height, barStackData}) => {
-  if (width < 100 || height < 100) return null;
+export const TodoBarStack: FC<TodoBarStackProps> = memo(({width, height, barStackData, lang}) => {
+  if (width < 100 || height < 100) {
+    return null;
+  }
 
   const {data, max} = barStackData;
   const getDay = (day: IBarStack) => day.x;
@@ -89,56 +99,67 @@ export const TodoBarStack: FC<TodoBarStackProps> = memo(({width, height, barStac
           </linearGradient>
         </defs>
 
-        <Group top={defaultMargin.top}>
-          <TodoBarStackGroup>
-            <BarStack
-              data={data}
-              keys={keys}
-              x={getDay}
-              xScale={xScale}
-              yScale={yScale}
-              color={colorScale}
+        {!barStackData.max && (
+          <Group top={(height / 2) - defaultMargin.top} left={xMax / 2}>
+            <TodoChartsPlug>
+              <tspan x={0} dy={0}>{Content.BAR.PLUG.START[lang]}</tspan>
+              <tspan x={0} dy={'1.25em'}>{Content.BAR.PLUG.END[lang]}</tspan>
+            </TodoChartsPlug>
+          </Group>
+        )}
 
-            >
-              {(barStacks) =>
-                barStacks.map((barStack) =>
-                  barStack.bars.map((bar) => (
-                    <rect
-                      key={`bar-stack-${barStack.index}-${bar.index}`}
-                      x={bar.x}
-                      y={bar.key === 'active' ? bar.y + 2 : bar.y}
-                      height={bar.height}
-                      width={bar.width}
-                      fill={bar.color}
-                      onMouseLeave={() => {
-                        tooltipTimeout = window.setTimeout(() => {
-                          hideTooltip();
-                        }, 300);
-                      }}
-                      onMouseMove={(event) => {
-                        if (tooltipTimeout) clearTimeout(tooltipTimeout);
+        {barStackData.max && (
+          <Group top={defaultMargin.top}>
+            <TodoBarStackGroup>
+              <BarStack
+                data={data}
+                keys={keys}
+                x={getDay}
+                xScale={xScale}
+                yScale={yScale}
+                color={colorScale}
 
-                        const eventSvgCoords = localPoint(event);
-                        const left = bar.x + bar.width / 2;
-                        const key = bar.key === 'active' ? 'active' : 'completed';
-                        const value = bar.bar.data[key];
+              >
+                {(barStacks) =>
+                  barStacks.map((barStack) =>
+                    barStack.bars.map((bar) => (
+                      <rect
+                        key={`bar-stack-${barStack.index}-${bar.index}`}
+                        x={bar.x}
+                        y={bar.key === 'active' ? bar.y + 2 : bar.y}
+                        height={bar.height}
+                        width={bar.width}
+                        fill={bar.color}
+                        onMouseLeave={() => {
+                          tooltipTimeout = window.setTimeout(() => {
+                            hideTooltip();
+                          }, 300);
+                        }}
+                        onMouseMove={(event) => {
+                          if (tooltipTimeout) clearTimeout(tooltipTimeout);
 
-                        showTooltip({
-                          tooltipData: {
-                            label: bar.key,
-                            value
-                          },
-                          tooltipTop: eventSvgCoords?.y,
-                          tooltipLeft: left,
-                        });
-                      }}
-                    />
-                  ))
-                )
-              }
-            </BarStack>
-          </TodoBarStackGroup>
-        </Group>
+                          const eventSvgCoords = localPoint(event);
+                          const left = bar.x + bar.width / 2;
+                          const key = bar.key === 'active' ? 'active' : 'completed';
+                          const value = bar.bar.data[key];
+
+                          showTooltip({
+                            tooltipData: {
+                              label: bar.key,
+                              value
+                            },
+                            tooltipTop: eventSvgCoords?.y,
+                            tooltipLeft: left,
+                          });
+                        }}
+                      />
+                    ))
+                  )
+                }
+              </BarStack>
+            </TodoBarStackGroup>
+          </Group>
+        )}
 
         <AxisBottom
           top={yMax + defaultMargin.top}

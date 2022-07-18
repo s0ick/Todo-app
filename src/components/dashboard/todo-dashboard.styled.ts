@@ -73,3 +73,14 @@ export const TodoBarStackTickWrapper = styled.text`
   
   transition: fill .2s ease-in;
 `;
+
+export const TodoChartsPlug = styled.text`
+  font-size: 16px;
+  text-anchor: middle;
+  
+  stroke-width: 1px;
+  stroke: ${props => props.theme.secondaryText};
+  fill: ${props => props.theme.secondaryText};
+
+  transition: fill .2s ease-in, stroke .2s ease-in;
+`;
