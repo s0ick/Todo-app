@@ -14,6 +14,7 @@ export const TodoDashboardBlock = styled.div`
   align-items: flex-start;
   
   margin-right: 80px;
+  margin-bottom: 80px;
   
   svg, g, path {
     transition: fill .2s ease-in;
@@ -66,7 +67,7 @@ export const TodoBarStackGroup = styled.g`
   transition: filter .2s ease-in;
 `;
 
-export const TodoBarStackTickWrapper = styled.text`
+export const TodoTickWrapper = styled.text`
   font-size: 12px;
   text-anchor: middle;
   fill: ${props => props.theme.text};

@@ -2,22 +2,6 @@ import {DateBlock, Task} from '../components/todo-page';
 
 import {Languages, MS_IN_DAY} from './constants';
 
-export const createUniqArray = (array: Array<any>) => Array.from(new Set(array));
-
-export const hexToRgb = (hex: string) => {
-  const rgbHex = hex.match(/.{1,2}/g);
-
-  if (!rgbHex) {
-    return 'Some Error';
-  }
-
-  return [
-    parseInt(rgbHex[0], 16),
-    parseInt(rgbHex[1], 16),
-    parseInt(rgbHex[2], 16)
-  ];
-}
-
 export const uuid = () => {
   const mask = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx';
   let dt = new Date().getTime();
@@ -85,4 +69,26 @@ export const getTitleDate = (date: string, lang: Languages) => {
   }
 
   return date;
+};
+
+export const binarySearch = (array: Array<DateBlock>, desired: Date) => {
+  let min = 0;
+  let max = array.length - 1;
+
+  while (min <= max) {
+    let middle = Math.floor((min + max) / 2);
+    let guess = array[middle];
+
+    if (guess.date === getFormattedDate(desired)) {
+      return guess;
+    }
+
+    if (new Date(guess.date) > desired) {
+      max = middle - 1;
+    } else {
+      min = middle + 1;
+    }
+  }
+
+  return null;
 };

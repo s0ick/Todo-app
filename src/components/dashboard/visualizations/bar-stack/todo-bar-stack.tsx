@@ -14,7 +14,7 @@ import {Languages} from '../../../../utils/constants';
 
 import {
   TodoBarStackGroup,
-  TodoBarStackTickWrapper,
+  TodoTickWrapper,
   TodoBarStackWrapper,
   TodoChartsPlug
 } from '../../todo-dashboard.styled';
@@ -169,7 +169,7 @@ export const TodoBarStack: FC<TodoBarStackProps> = memo(({width, height, barStac
         >
           {axis => {
             return axis.ticks.map(tick => (
-              <TodoBarStackTickWrapper
+              <TodoTickWrapper
                 key={`visx-axis-bot-tick-${tick.index}`}
                 x={tick.from.x}
                 y={tick.to.y}
@@ -177,7 +177,7 @@ export const TodoBarStack: FC<TodoBarStackProps> = memo(({width, height, barStac
                 <tspan x={tick.from.x} dy={tick.to.y + 6}>
                   {tick.value}
                 </tspan>
-              </TodoBarStackTickWrapper>
+              </TodoTickWrapper>
             ))
           }}
         </AxisBottom>

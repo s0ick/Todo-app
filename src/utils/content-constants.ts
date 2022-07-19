@@ -134,6 +134,17 @@ export const Content = {
     }
   },
 
+  LINE: {
+    TITLE: {
+      EN: 'Timeline',
+      RU: 'Временная линия'
+    },
+    SUBTITLE: {
+      EN: 'Shows the number of completed and active tasks for each day since you started using the application',
+      RU: 'Показывает количество выполненных и активных задач на каждый день с момента начала использования приложения'
+    }
+  },
+
   NO_MATCH: {
     TITLE: {
       EN: 'Page not found',

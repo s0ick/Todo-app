@@ -10,12 +10,14 @@ import {DateBlock} from '../todo-page';
 
 import {TodoPies} from './visualizations/pies/todo-pies';
 import {TodoBarStack} from './visualizations/bar-stack/todo-bar-stack';
+import {TodoTimeline} from './visualizations/timeline/todo-timeline';
 import {
   TodoDashboardBlock,
   TodoDashboardBlockTitle,
   TodoDashboardBlockSubtitle,
   TodoDashboardWrapper
 } from './todo-dashboard.styled';
+import {getFormattedTimelineData} from '../../utils/timeline.utils';
 
 interface DashboardProps {
   tasks: Array<DateBlock>;
@@ -23,11 +25,12 @@ interface DashboardProps {
 }
 
 export const TodoDashboard: FC<DashboardProps> = memo(({tasks, lang}) => {
-  const {piesData, barStackData} = useMemo(
+  const {piesData, barStackData, timelineData} = useMemo(
     () => {
       const piesData = getFormattedPiesData(tasks, lang);
       const barStackData = getFormattedBarStackData(tasks, lang);
-      return {piesData, barStackData};
+      const timelineData = getFormattedTimelineData(tasks);
+      return {piesData, barStackData, timelineData};
     }, [tasks, lang]
   );
 
@@ -53,6 +56,16 @@ export const TodoDashboard: FC<DashboardProps> = memo(({tasks, lang}) => {
             {Content.BAR.SUBTITLE[lang]}
           </TodoDashboardBlockSubtitle>
           <TodoBarStack barStackData={barStackData} width={500} height={350} lang={lang}/>
+        </TodoDashboardBlock>
+
+        <TodoDashboardBlock>
+          <TodoDashboardBlockTitle>
+            {Content.LINE.TITLE[lang]}
+          </TodoDashboardBlockTitle>
+          <TodoDashboardBlockSubtitle>
+            {Content.LINE.SUBTITLE[lang]}
+          </TodoDashboardBlockSubtitle>
+          <TodoTimeline data={timelineData} width={1000} height={350}/>
         </TodoDashboardBlock>
 
       </TodoDashboardWrapper>
