@@ -1,4 +1,4 @@
-import React, {FC, memo} from 'react';
+import React, {FC, memo, useMemo} from 'react';
 import {scaleTime, scaleLinear} from '@visx/scale';
 import {AxisLeft, AxisBottom} from '@visx/axis';
 import {LinePath} from '@visx/shape';
@@ -22,24 +22,44 @@ export const TodoTimeline: FC<TimelineProps> = memo(({width, height, data}) => {
   }
 
   const getDate = (d: ITimeline) => d.x.valueOf();
-  const domains = data.map(getDate);
+  const domains = useMemo(
+    () => {
+      return data.map(getDate);
+    }, [data]
+  );
 
-  const xScale = scaleTime<number>({
-    domain: [
-      Math.min(...domains),
-      Math.max(...domains)
-    ]
-  });
-  const yScale = scaleLinear<number>({
-    domain: [
-      Math.min(...data.map(d => Math.min(d.active, d.completed))),
-      Math.max(...data.map(d => Math.max(d.active, d.completed)))
-    ],
-    nice: true
-  });
+  const xScale = useMemo(
+    () => {
+      return scaleTime<number>({
+        domain: [
+          Math.min(...domains),
+          Math.max(...domains)
+        ]
+      });
+    }, [domains]
+  );
+  const yScale = useMemo(
+    () => {
+      return scaleLinear<number>({
+        domain: [
+          Math.min(...data.map(d => Math.min(d.active, d.completed))),
+          Math.max(...data.map(d => Math.max(d.active, d.completed)))
+        ],
+        nice: true
+      });
+    }, [data]
+  );
 
-  const xMax = width - defaultMargin.left - defaultMargin.right;
-  const yMax = height - defaultMargin.top - defaultMargin.bottom;
+  const xMax = useMemo(
+    () => {
+      return width - defaultMargin.left - defaultMargin.right;
+    }, [width]
+  );
+  const yMax = useMemo(
+    () => {
+      return height - defaultMargin.top - defaultMargin.bottom;
+    }, [height]
+  );
 
   xScale.range([0, xMax]);
   yScale.range([yMax, 0]);

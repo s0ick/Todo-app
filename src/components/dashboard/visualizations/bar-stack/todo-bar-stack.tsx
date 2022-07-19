@@ -59,23 +59,41 @@ export const TodoBarStack: FC<TodoBarStackProps> = memo(({width, height, barStac
     []
   );
 
-  const xScale = scaleBand<string>({
-    domain: data.map(getDay),
-    padding: 0.3
-  });
+  const xScale = useMemo(
+    () => {
+      return scaleBand<string>({
+        domain: data.map(getDay),
+        padding: 0.3
+      });
+    }, [data]
+  );
 
-  const yScale = scaleLinear<number>({
-    domain: [0, max],
-    nice: true
-  });
+  const yScale = useMemo(
+    () => {
+      return scaleLinear<number>({
+        domain: [0, max],
+        nice: true
+      });
+    }, [max]
+  );
 
-  const colorScale = scaleOrdinal({
-    domain: keys,
-    range: ['url(#visx-gradient-bar-teal)', 'url(#visx-gradient-bar-pink)']
-  });
+  const colorScale = useMemo(
+    () => {
+      return scaleOrdinal({
+        domain: keys,
+        range: ['url(#visx-gradient-bar-teal)', 'url(#visx-gradient-bar-pink)']
+      });
+    }, [keys]
+  );
 
-  const xMax = width;
-  const yMax = height - defaultMargin.top - 25;
+  const {xMax, yMax} = useMemo(
+    () => {
+      const xMax = width;
+      const yMax = height - defaultMargin.top - 25;
+
+      return {xMax, yMax};
+    }, [width, height]
+  );
 
   const {tooltipOpen, tooltipLeft, tooltipTop, tooltipData, hideTooltip, showTooltip} =
     useTooltip<TooltipData>();

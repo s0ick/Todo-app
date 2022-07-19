@@ -50,21 +50,29 @@ export const TodoPies: FC<PiesProps> = memo(({data, size, lang}) => {
 
   const getValue = (d: Segment) => d.value;
 
-  const outerScale = scaleOrdinal({
-    domain: data[PiesTypes.OUTER].map(s => s.label),
-    range: [
-      'url(#visx-gradient-teal)',
-      'url(#visx-gradient-pink)'
-    ]
-  });
+  const outerScale = useMemo(
+    () => {
+      return scaleOrdinal({
+        domain: data[PiesTypes.OUTER].map(s => s.label),
+        range: [
+          'url(#visx-gradient-teal)',
+          'url(#visx-gradient-pink)'
+        ]
+      });
+    }, [data]
+  );
 
-  const innerScale = scaleOrdinal({
-    domain: data[PiesTypes.INNER].map(s => s.label),
-    range: [
-      'url(#visx-gradient-green-d)',
-      'url(#visx-gradient-green-l)'
-    ]
-  });
+  const innerScale = useMemo(
+    () => {
+      return scaleOrdinal({
+        domain: data[PiesTypes.INNER].map(s => s.label),
+        range: [
+          'url(#visx-gradient-green-d)',
+          'url(#visx-gradient-green-l)'
+        ]
+      });
+    }, [data]
+  );
 
   const {tooltipOpen, tooltipLeft, tooltipTop, tooltipData, hideTooltip, showTooltip} =
     useTooltip<TooltipData>();
@@ -79,12 +87,18 @@ export const TodoPies: FC<PiesProps> = memo(({data, size, lang}) => {
     }, [data]
   );
 
-  const innerWidth = size - defaultMargin.left - defaultMargin.right;
-  const innerHeight = size - defaultMargin.top - defaultMargin.bottom;
-  const radius = Math.min(innerWidth, innerHeight) / 2;
-  const centerY = innerHeight / 2;
-  const centerX = innerWidth / 2;
-  const donutThickness = 70;
+  const {radius, centerY, centerX, donutThickness} = useMemo(
+    () => {
+      const innerWidth = size - defaultMargin.left - defaultMargin.right;
+      const innerHeight = size - defaultMargin.top - defaultMargin.bottom;
+      const radius = Math.min(innerWidth, innerHeight) / 2;
+      const centerY = innerHeight / 2;
+      const centerX = innerWidth / 2;
+      const donutThickness = 70;
+
+      return {radius, centerY, centerX, donutThickness}
+    }, [size]
+  );
 
   return (
     <TodoPiesWrapper>
