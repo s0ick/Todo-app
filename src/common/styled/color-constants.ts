@@ -70,5 +70,6 @@ export const Colors = {
   LIGHT: '#CAD3DC',
   SUCCESS: '#00E676',
   ERROR: '#FF1744',
-  ACTION: '#0162C8'
+  ACTION: '#0162C8',
+  HINT_ACTION: '#755BEA'
 };

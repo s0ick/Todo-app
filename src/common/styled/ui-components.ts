@@ -20,6 +20,10 @@ interface LoaderProps {
   stage: InitializationStages
 }
 
+interface TooltipProps {
+  bgc: string;
+}
+
 export const PageTitle = styled.h1`
   padding: 0;
   margin: 0;
@@ -248,6 +252,7 @@ export const TooltipWrapper = styled.div`
   
   strong {
     font-size: 18px;
+    padding-bottom: 5px;
   }
   
   strong::first-letter {
@@ -257,4 +262,13 @@ export const TooltipWrapper = styled.div`
 
 export const TooltipRow = styled.div`
   margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+`;
+
+export const TooltipLine = styled.div<TooltipProps>`
+  width: 20px;
+  height: 2px;
+  background-color: ${props => props.bgc};
+  margin-right: 8px;
 `;

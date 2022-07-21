@@ -62,6 +62,10 @@ export const TodoBarStackWrapper = styled.div`
   position: relative;
 `;
 
+export const TodoTimelineWrapper = styled.div`
+  position: relative;
+`;
+
 export const TodoBarStackGroup = styled.g`
   ${props => props.theme.neoSVGUp};
   transition: filter .2s ease-in;
