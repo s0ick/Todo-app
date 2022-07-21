@@ -39,6 +39,14 @@ export const TodoTimeline: FC<TimelineProps> = memo(({width, height, data}) => {
     return null;
   }
 
+  const bisectDate = bisector<ITimeline, Date>(d => d.x).left;
+  const getDate = (d: ITimeline) => d.x.valueOf();
+  const domains = useMemo(
+    () => {
+      return data.map(getDate);
+    }, [data]
+  );
+
   const {xMax, yMax} = useMemo(
     () => {
       const xMax = width - defaultMargin.left - defaultMargin.right;
@@ -46,13 +54,6 @@ export const TodoTimeline: FC<TimelineProps> = memo(({width, height, data}) => {
 
       return {xMax, yMax};
     }, [width, height]
-  );
-
-  const getDate = (d: ITimeline) => d.x.valueOf();
-  const domains = useMemo(
-    () => {
-      return data.map(getDate);
-    }, [data]
   );
 
   const xScale = useMemo(
@@ -85,8 +86,6 @@ export const TodoTimeline: FC<TimelineProps> = memo(({width, height, data}) => {
     scroll: true,
   });
 
-  const bisectDate = bisector<ITimeline, Date>(d => d.x).left;
-
   const handleTooltip = useCallback(
     (event: React.TouchEvent<SVGRectElement> | React.MouseEvent<SVGRectElement>) => {
       const {x} = localPoint(event) || {x: 0};
@@ -103,7 +102,6 @@ export const TodoTimeline: FC<TimelineProps> = memo(({width, height, data}) => {
         tooltipLeft: x,
         tooltipTop: yScale(d.active)
       });
-      debugger
     },
     [showTooltip, yScale, xScale]
   );
@@ -176,7 +174,7 @@ export const TodoTimeline: FC<TimelineProps> = memo(({width, height, data}) => {
                 x={tick.from.x}
                 y={tick.to.y}
               >
-                <tspan x={tick.from.x + 30} dy={tick.to.y + 20}>
+                <tspan x={tick.from.x + defaultMargin.left} dy={tick.to.y + defaultMargin.top}>
                   {tick.formattedValue !== '12 PM' && tick.formattedValue}
                 </tspan>
               </TodoTickWrapper>
