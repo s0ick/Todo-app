@@ -1,7 +1,7 @@
 import React, {FC, memo} from 'react';
 import {NavLink, useLocation} from 'react-router-dom';
 
-import {IconThemeMode, IconList, IconSettings, IconStatistic} from '../ui-components/icons';
+import {IconThemeMode, IconList, IconStatistic} from '../ui-components/icons';
 import {Links} from '../../utils/constants';
 
 import {TodoMenuList, TodoMenuWrapper, TodoMenuIcon, TodoMenuIconNav} from './todo-menu.styled';
@@ -20,7 +20,7 @@ export const TodoMenu: FC<MenuProps> = memo(({setTheme, isLightMode, setLang, la
   return (
     <TodoMenuWrapper>
       <TodoMenuList>
-        {isShow && (
+        {isShow &&
           <>
             <NavLink to={Links.TASKS}>
               <TodoMenuIconNav isCurrent={location.pathname === Links.TASKS}>
@@ -32,13 +32,8 @@ export const TodoMenu: FC<MenuProps> = memo(({setTheme, isLightMode, setLang, la
                 <IconStatistic size={25}/>
               </TodoMenuIconNav>
             </NavLink>
-            <NavLink to={Links.SETT}>
-              <TodoMenuIconNav isCurrent={location.pathname === Links.SETT}>
-                <IconSettings size={25}/>
-              </TodoMenuIconNav>
-            </NavLink>
           </>
-        )}
+        }
       </TodoMenuList>
 
       <TodoMenuList>

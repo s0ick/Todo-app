@@ -8,8 +8,9 @@ import {BarStack} from '@visx/shape';
 import {Group} from '@visx/group';
 
 import {IBarStack} from '../../../../utils/bar-stack.utils';
-import {Colors} from '../../../../common/styled/color-constants';
 import {TooltipRow, TooltipWrapper} from '../../../../common/styled/ui-components';
+import {Colors} from '../../../../common/styled/color-constants';
+import {Content} from '../../../../utils/content-constants';
 import {Languages} from '../../../../utils/constants';
 
 import {
@@ -18,7 +19,6 @@ import {
   TodoBarStackWrapper,
   TodoChartsPlug
 } from '../../todo-dashboard.styled';
-import {Content} from '../../../../utils/content-constants';
 
 interface TodoBarStackData {
   data: Array<IBarStack>;

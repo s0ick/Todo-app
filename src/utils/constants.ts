@@ -35,7 +35,6 @@ export enum PiesTypes {
 
 export enum Links {
   TASKS = '/tasks',
-  SETT = '/settings',
   DASH = '/dashboard'
 }
 
