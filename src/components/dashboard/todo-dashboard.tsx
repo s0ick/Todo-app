@@ -65,7 +65,7 @@ export const TodoDashboard: FC<DashboardProps> = memo(({tasks, lang}) => {
           <TodoDashboardBlockSubtitle>
             {Content.LINE.SUBTITLE[lang]}
           </TodoDashboardBlockSubtitle>
-          <TodoTimelineBrush data={timelineData} width={1000} height={350} brushHeight={80}/>
+          <TodoTimelineBrush data={timelineData} width={1600} height={350} brushHeight={50}/>
         </TodoDashboardBlock>
 
       </TodoDashboardWrapper>

@@ -1,4 +1,4 @@
-import React, {FC, useCallback, useMemo, useRef, useState} from 'react';
+import React, {FC, useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import {BrushHandleRenderProps} from '@visx/brush/lib/BrushHandle';
 import BaseBrush from '@visx/brush/lib/BaseBrush';
 import {Bounds} from '@visx/brush/lib/types';
@@ -90,7 +90,7 @@ export const TodoTimelineBrush: FC<TimelineProps> = ({width, height, data, brush
         end: {x: xScale(getDate(data[data.length - 1]))}
       };
     },
-    [brushOptions.xScale, data],
+    [brushOptions.xScale, data]
   );
 
   const onBrushChange = useCallback(
@@ -99,15 +99,29 @@ export const TodoTimelineBrush: FC<TimelineProps> = ({width, height, data, brush
         return;
       }
 
-      const {x0, x1, y0, y1} = domain;
+      const {x0, x1} = domain;
       const dataCopy = data.filter(s => {
         const x = getDate(s);
-        const y = s.active;
-        return x > x0 && x < x1 && y > y0 && y < y1;
+        return x > x0 && x < x1;
       });
-      setFilteredData(dataCopy);
+
+      if (dataCopy.length > 5) {
+        setFilteredData(dataCopy);
+      }
     }, [data]
   );
+
+  useEffect(() => {
+    const startPoint = data.length > 51 ? data.length - 50 : 0;
+    const start = getDate(data[startPoint]);
+    const end = getDate(data[data.length - 1]);
+    const dataCopy = data.filter(s => {
+      const x = getDate(s);
+      return x > start && x < end;
+    });
+
+    setFilteredData(dataCopy);
+  }, [data]);
 
   return (
     <TodoTimelineWrapper>
