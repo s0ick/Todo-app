@@ -1,8 +1,8 @@
-import {DateBlock, Task} from '../components/todo-page';
+import {DateBlock, Task} from '../../components/todo-page';
 
-import {getTasksWithoutDateBlocks, getWeekly} from './utils';
-import {Content} from './content-constants';
-import {Languages} from './constants';
+import {getTasksWithoutDateBlocks, getWeekly} from '../utils';
+import {Content} from '../content-constants';
+import {Languages} from '../constants';
 
 export interface Segment {
   label: string;

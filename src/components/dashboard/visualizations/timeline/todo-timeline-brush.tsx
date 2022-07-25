@@ -6,7 +6,7 @@ import {PatternLines} from '@visx/pattern';
 import {Group} from '@visx/group';
 import {Brush} from '@visx/brush';
 
-import {getTimelineOptions, ITimeline} from '../../../../utils/timeline.utils';
+import {getTimelineOptions, ITimeline} from '../../../../utils/visualizations/timeline.utils';
 import {Colors} from '../../../../common/styled/color-constants';
 
 import {TodoTimelineWrapper} from '../../todo-dashboard.styled';

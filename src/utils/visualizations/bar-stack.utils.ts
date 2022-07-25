@@ -1,8 +1,8 @@
-import {DateBlock} from '../components/todo-page';
+import {DateBlock} from '../../components/todo-page';
 
-import {Languages} from './constants';
-import {Content} from './content-constants';
-import {getWeekly} from './utils';
+import {Languages} from '../constants';
+import {Content} from '../content-constants';
+import {getWeekly} from '../utils';
 
 export interface IBarStack {
   x: string;
@@ -72,8 +72,5 @@ export const getFormattedBarStackData = (tasks: Array<DateBlock>, lang: Language
     }
   });
 
-  return {
-    data,
-    max
-  };
+  return {data, max};
 };

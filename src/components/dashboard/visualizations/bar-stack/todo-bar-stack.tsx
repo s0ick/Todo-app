@@ -7,7 +7,7 @@ import {AxisBottom} from '@visx/axis';
 import {BarStack} from '@visx/shape';
 import {Group} from '@visx/group';
 
-import {IBarStack} from '../../../../utils/bar-stack.utils';
+import {IBarStack} from '../../../../utils/visualizations/bar-stack.utils';
 import {TooltipRow, TooltipWrapper} from '../../../../common/styled/ui-components';
 import {Colors} from '../../../../common/styled/color-constants';
 import {Content} from '../../../../utils/content-constants';

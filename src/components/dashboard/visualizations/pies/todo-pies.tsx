@@ -10,7 +10,7 @@ import {TooltipRow, TooltipWrapper} from '../../../../common/styled/ui-component
 import {Colors} from '../../../../common/styled/color-constants';
 import {Languages, PiesTypes} from '../../../../utils/constants';
 import {Content} from '../../../../utils/content-constants';
-import {Segment} from '../../../../utils/pies.utils';
+import {Segment} from '../../../../utils/visualizations/pies.utils';
 
 import {TodoChartsPlug, TodoPieGroup, TodoPiesWrapper} from '../../todo-dashboard.styled';
 

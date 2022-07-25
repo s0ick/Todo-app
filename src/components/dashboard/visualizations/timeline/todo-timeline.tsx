@@ -6,7 +6,7 @@ import {localPoint} from '@visx/event';
 import {Group} from '@visx/group';
 import {bisector} from 'd3-array';
 
-import {IMargin, ITimeline} from '../../../../utils/timeline.utils';
+import {IMargin, ITimeline} from '../../../../utils/visualizations/timeline.utils';
 import {getFormattedDate} from '../../../../utils/utils';
 import {Colors} from '../../../../common/styled/color-constants';
 import {TooltipLine, TooltipRow, TooltipWrapper} from '../../../../common/styled/ui-components';

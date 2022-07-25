@@ -1,8 +1,8 @@
 import React, {FC, memo, useMemo} from 'react';
 
-import {getFormattedPiesData} from '../../utils/pies.utils';
-import {getFormattedBarStackData} from '../../utils/bar-stack.utils';
-import {getFormattedTimelineData} from '../../utils/timeline.utils';
+import {getFormattedPiesData} from '../../utils/visualizations/pies.utils';
+import {getFormattedBarStackData} from '../../utils/visualizations/bar-stack.utils';
+import {getFormattedTimelineData} from '../../utils/visualizations/timeline.utils';
 import {PageContent} from '../../common/styled/ui-components';
 import {Content} from '../../utils/content-constants';
 import {Languages} from '../../utils/constants';

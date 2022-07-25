@@ -1,8 +1,8 @@
 import {scaleLinear, scaleTime} from '@visx/scale';
 
-import {DateBlock} from '../components/todo-page';
+import {DateBlock} from '../../components/todo-page';
 
-import {binarySearch} from './utils';
+import {binarySearch} from '../utils';
 
 export interface ITimeline {
   x: Date;
