@@ -2,6 +2,7 @@ import React, {FC, memo, useMemo} from 'react';
 
 import {getFormattedPiesData} from '../../utils/pies.utils';
 import {getFormattedBarStackData} from '../../utils/bar-stack.utils';
+import {getFormattedTimelineData} from '../../utils/timeline.utils';
 import {PageContent} from '../../common/styled/ui-components';
 import {Content} from '../../utils/content-constants';
 import {Languages} from '../../utils/constants';
@@ -10,14 +11,13 @@ import {DateBlock} from '../todo-page';
 
 import {TodoPies} from './visualizations/pies/todo-pies';
 import {TodoBarStack} from './visualizations/bar-stack/todo-bar-stack';
-import {TodoTimeline} from './visualizations/timeline/todo-timeline';
+import {TodoTimelineBrush} from './visualizations/timeline/todo-timeline-brush';
 import {
   TodoDashboardBlock,
   TodoDashboardBlockTitle,
   TodoDashboardBlockSubtitle,
   TodoDashboardWrapper
 } from './todo-dashboard.styled';
-import {getFormattedTimelineData} from '../../utils/timeline.utils';
 
 interface DashboardProps {
   tasks: Array<DateBlock>;
@@ -65,7 +65,7 @@ export const TodoDashboard: FC<DashboardProps> = memo(({tasks, lang}) => {
           <TodoDashboardBlockSubtitle>
             {Content.LINE.SUBTITLE[lang]}
           </TodoDashboardBlockSubtitle>
-          <TodoTimeline data={timelineData} width={1000} height={350}/>
+          <TodoTimelineBrush data={timelineData} width={1000} height={350} brushHeight={80}/>
         </TodoDashboardBlock>
 
       </TodoDashboardWrapper>
