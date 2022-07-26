@@ -1,7 +1,7 @@
 import React, {FC, memo} from 'react';
 
 interface IconProps {
-  size: number;
+  size?: number;
 }
 
 export const IconThemeMode: FC<IconProps> = memo(({size = 32}) => (
