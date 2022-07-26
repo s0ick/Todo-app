@@ -54,6 +54,7 @@
     ]
   },
   "devDependencies": {
-    "@types/d3-array": "^3.0.3"
+    "@types/d3-array": "^3.0.3",
+    "jest": "^28.1.3"
   }
 }

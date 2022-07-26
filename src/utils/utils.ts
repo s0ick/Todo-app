@@ -14,7 +14,7 @@ export const uuid = () => {
   );
 };
 
-export const getFormattedDate = (date: Date, local: string = 'en-US') => {
+export const getFormattedDate = (date: Date = new Date(), local: string = 'en-US') => {
   const formatDate = date.toLocaleDateString(local, {
     weekday: 'long',
     year: 'numeric',
@@ -29,7 +29,7 @@ export const getFormattedDate = (date: Date, local: string = 'en-US') => {
   return `${formatDate[0]}.${formatDate[1]}${formatDate[2]}`;
 };
 
-export const getCompletedListLength = (tasks: Array<Task>): number => {
+export const getCompletedListLength = (tasks: Array<Task> = []): number => {
   let counter = 0;
 
   tasks.forEach(task => {
