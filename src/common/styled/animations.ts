@@ -1,7 +1,5 @@
 import {keyframes} from 'styled-components';
 
-import {Colors} from './color-constants';
-
 export const ldsRing = keyframes`
   0% {
     transform: rotate(0deg);

@@ -1,9 +1,13 @@
-import React, {FC, useCallback, useState, memo} from 'react';
+import React, {
+  FC, useCallback, useState, memo
+} from 'react';
 
 import {IconComplete, IconDelete} from '../../../common/ui-components/icons';
 import {useNotification} from '../../../common/ui-components/notifications/notifications-provider';
 import {PageButton} from '../../../common/styled/ui-components';
-import {Actions, ButtonColors, Languages, NotificationTypes} from '../../../utils/constants';
+import {
+  Actions, ButtonColors, Languages, NotificationTypes
+} from '../../../utils/constants';
 import {Content} from '../../../utils/content-constants';
 
 import {Task} from '../../todo-page';
@@ -25,55 +29,49 @@ export const TodoTaskForm: FC<FormProps> = memo(({
   const [message, setMessage] = useState('');
   const dispatch = useNotification();
 
-  const handleInput = useCallback(
-    (event: React.FormEvent<EventTarget>) => {
-      const target = event.target as HTMLInputElement;
-      setMessage(target.value);
-    }, []
-  );
+  const handleInput = useCallback((event: React.FormEvent<EventTarget>) => {
+    const target = event.target as HTMLInputElement;
+    setMessage(target.value);
+  }, []);
 
-  const addTask = useCallback(
-    () => {
-      if (!message.trim()) {
-        dispatch({
-          type: NotificationTypes.ERR,
-          message: Content.NOTIFICATION.TASKS.ADD.ERROR[lang],
-          delay: 12
-        });
-        return;
-      }
-
-      handleTask({
-        dateCreated: new Date(),
-        dateCompleted: null,
-        completed: false,
-        message: message.trim()
-      });
-
-      setMessage('');
+  const addTask = useCallback(() => {
+    if (!message.trim()) {
       dispatch({
-        type: NotificationTypes.SUC,
-        message: Content.NOTIFICATION.TASKS.ADD.VALID[lang],
-        delay: 8
+        type: NotificationTypes.ERR,
+        message: Content.NOTIFICATION.TASKS.ADD.ERROR[lang],
+        delay: 12
       });
-    }, [message, handleTask, dispatch]
-  );
+      return;
+    }
 
-  const pressEnter = useCallback(
-    (event: React.KeyboardEvent<object>) => {
-      if (event.code === 'Enter') {
-        addTask();
-      }
-    }, [addTask]
-  );
+    handleTask({
+      dateCreated: new Date(),
+      dateCompleted: null,
+      completed: false,
+      message: message.trim()
+    });
+
+    setMessage('');
+    dispatch({
+      type: NotificationTypes.SUC,
+      message: Content.NOTIFICATION.TASKS.ADD.VALID[lang],
+      delay: 8
+    });
+  }, [message, handleTask, dispatch, lang]);
+
+  const pressEnter = useCallback((event: React.KeyboardEvent<object>) => {
+    if (event.code === 'Enter') {
+      addTask();
+    }
+  }, [addTask]);
 
   return (
     <TodoTaskFormWrapper>
       <TodoTaskFormContainer>
         <TodoTaskFormInput
-          type={'text'}
+          type="text"
           placeholder={Content.TASKS.FORM.LABEL[lang]}
-          autoComplete={'off'}
+          autoComplete="off"
           value={message}
           onInput={handleInput}
           onKeyPress={pressEnter}
@@ -91,7 +89,7 @@ export const TodoTaskForm: FC<FormProps> = memo(({
           bgc={ButtonColors.GREEN}
           isActive={isTodoMode}
         >
-          <IconComplete size={16}/>
+          <IconComplete size={16} />
           {Content.TASKS.FORM.BUTTONS.COMPLETE[lang]}
         </PageButton>
         <PageButton
@@ -99,7 +97,7 @@ export const TodoTaskForm: FC<FormProps> = memo(({
           bgc={ButtonColors.PURPLE}
           isActive={isRemoveMode}
         >
-          <IconDelete size={15}/>
+          <IconDelete size={15} />
           {Content.TASKS.FORM.BUTTONS.REMOVE[lang]}
         </PageButton>
       </TodoTaskFormContainer>

@@ -7,11 +7,10 @@ export const uuid = () => {
   let dt = new Date().getTime();
 
   return mask.replace(/[xy]/g, c => {
-      const r = (dt + Math.random() * 16) % 16 | 0;
-      dt = Math.floor(dt / 16);
-      return (c === 'x' ? r : (r & 0x3) | 0x8).toString(16);
-    }
-  );
+    const r = (dt + Math.random() * 16) % 16 | 0;
+    dt = Math.floor(dt / 16);
+    return (c === 'x' ? r : (r & 0x3) | 0x8).toString(16);
+  });
 };
 
 export const getFormattedDate = (date: Date = new Date(), local: string = 'en-US') => {
@@ -36,7 +35,7 @@ export const getCompletedListLength = (tasks: Array<Task> = []): number => {
     if (task.completed) {
       counter += 1;
     }
-  })
+  });
 
   return counter;
 };
@@ -76,8 +75,8 @@ export const binarySearch = (array: Array<DateBlock>, desired: Date) => {
   let max = array.length - 1;
 
   while (min <= max) {
-    let middle = Math.floor((min + max) / 2);
-    let guess = array[middle];
+    const middle = Math.floor((min + max) / 2);
+    const guess = array[middle];
 
     if (guess.date === getFormattedDate(desired)) {
       return guess;

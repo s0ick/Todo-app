@@ -1,4 +1,6 @@
-import React, {FC, useCallback, useState, memo, lazy} from 'react';
+import React, {
+  FC, useCallback, useState, memo
+} from 'react';
 
 import {getCompletedListLength, getTitleDate} from '../../utils/utils';
 import {IconArrow} from '../../common/ui-components/icons';
@@ -40,45 +42,42 @@ export const TodoTasks: FC<TodoTasksProps> = memo(({
   const [isRemoveMode, setIsRemoveMode] = useState<boolean>(false);
   const [affectedTasks, setAffectedTasks] = useState<IAffectedTasks | null>(null);
 
-  const taskManagement = useCallback(
-    (action: Actions, taskId?: string, newMessage?: string): void => {
+  const taskManagement = useCallback((action: Actions, taskId?: string, newMessage?: string): void => {
+    switch (action) {
+      case Actions.CHANGE_STATUS:
+        setIsRemoveMode(false);
+        if (isTodoMode && affectedTasks) {
+          changeStatusTask(affectedTasks);
+        }
 
-      switch (action) {
-        case Actions.CHANGE_STATUS:
-          setIsRemoveMode(false);
-          if (isTodoMode && affectedTasks) {
-            changeStatusTask(affectedTasks);
+        setIsTodoMode(prevState => !prevState);
+        break;
+      case Actions.DELETE:
+        setIsTodoMode(false);
+        if (isRemoveMode && affectedTasks) {
+          deleteTasks(affectedTasks);
+        }
+
+        setIsRemoveMode(prevState => !prevState);
+        break;
+      case Actions.EDIT:
+        if (taskId && newMessage) {
+          const selectedTask: IAffectedTasks = {};
+          selectedTask[taskId] = true;
+
+          if (newMessage === '') {
+            deleteTasks(selectedTask);
+            break;
           }
 
-          setIsTodoMode(prevState => !prevState);
-          break;
-        case Actions.DELETE:
-          setIsTodoMode(false);
-          if (isRemoveMode && affectedTasks) {
-            deleteTasks(affectedTasks);
-          }
+          editTask(taskId, newMessage);
+        }
+        break;
+      default: break;
+    }
 
-          setIsRemoveMode(prevState => !prevState);
-          break;
-        case Actions.EDIT:
-          if (taskId && newMessage) {
-            const selectedTask: IAffectedTasks = {};
-            selectedTask[taskId] = true;
-
-            if (newMessage === '') {
-              deleteTasks(selectedTask);
-              break;
-            }
-
-            editTask(taskId, newMessage);
-          }
-          break;
-        default: break;
-      }
-
-      setAffectedTasks(null);
-    }, [isTodoMode, isRemoveMode, affectedTasks]
-  );
+    setAffectedTasks(null);
+  }, [isTodoMode, isRemoveMode, affectedTasks, changeStatusTask, deleteTasks, editTask]);
 
   const updateAffectedTasks = (task: Task) => {
     const taskId: string | undefined = task.id;
@@ -86,8 +85,9 @@ export const TodoTasks: FC<TodoTasksProps> = memo(({
     if (taskId) {
       setAffectedTasks(prevState => {
         if (prevState) {
-          prevState[taskId] = true;
-          return prevState;
+          const newState = {...prevState};
+          newState[taskId] = true;
+          return newState;
         }
 
         const newObj: IAffectedTasks = {};
@@ -95,7 +95,7 @@ export const TodoTasks: FC<TodoTasksProps> = memo(({
         return newObj;
       });
     }
-  }
+  };
 
   return (
     <PageContent>
@@ -120,7 +120,7 @@ export const TodoTasks: FC<TodoTasksProps> = memo(({
               onClick={() => hideDateBlock(dateBlock.date)}
             >
               <TodoTasksArrow isHide={dateBlock.isHide}>
-                <IconArrow/>
+                <IconArrow />
               </TodoTasksArrow>
 
               <TodoTasksDateTitle>

@@ -37,7 +37,9 @@ export type TooltipData = {
   value: number;
 };
 
-const defaultMargin = {top: 40, right: 0, bottom: 0, left: 0};
+const defaultMargin = {
+  top: 40, right: 0, bottom: 0, left: 0
+};
 const tooltipStyles = {
   ...defaultStyles,
   minWidth: 60,
@@ -46,11 +48,9 @@ const tooltipStyles = {
 };
 let tooltipTimeout: number;
 
-export const TodoBarStack: FC<TodoBarStackProps> = memo(({width, height, barStackData, lang}) => {
-  if (width < 100 || height < 100) {
-    return null;
-  }
-
+export const TodoBarStack: FC<TodoBarStackProps> = memo(({
+  width, height, barStackData, lang
+}) => {
   const {data, max} = barStackData;
   const getDay = (day: IBarStack) => day.x;
 
@@ -59,61 +59,52 @@ export const TodoBarStack: FC<TodoBarStackProps> = memo(({width, height, barStac
     []
   );
 
-  const xScale = useMemo(
-    () => {
-      return scaleBand<string>({
-        domain: data.map(getDay),
-        padding: 0.3
-      });
-    }, [data]
-  );
+  const xScale = useMemo(() => scaleBand<string>({
+    domain: data.map(getDay),
+    padding: 0.3
+  }), [data]);
 
-  const yScale = useMemo(
-    () => {
-      return scaleLinear<number>({
-        domain: [0, max],
-        nice: true
-      });
-    }, [max]
-  );
+  const yScale = useMemo(() => scaleLinear<number>({
+    domain: [0, max],
+    nice: true
+  }), [max]);
 
-  const colorScale = useMemo(
-    () => {
-      return scaleOrdinal({
-        domain: keys,
-        range: ['url(#visx-gradient-bar-teal)', 'url(#visx-gradient-bar-pink)']
-      });
-    }, [keys]
-  );
+  const colorScale = useMemo(() => scaleOrdinal({
+    domain: keys,
+    range: ['url(#visx-gradient-bar-teal)', 'url(#visx-gradient-bar-pink)']
+  }), [keys]);
 
-  const {xMax, yMax} = useMemo(
-    () => {
-      const xMax = width;
-      const yMax = height - defaultMargin.top - 25;
+  const {xMax, yMax} = useMemo(() => {
+    const x = width;
+    const y = height - defaultMargin.top - 25;
 
-      return {xMax, yMax};
-    }, [width, height]
-  );
+    return {xMax: x, yMax: y};
+  }, [width, height]);
 
-  const {tooltipOpen, tooltipLeft, tooltipTop, tooltipData, hideTooltip, showTooltip} =
-    useTooltip<TooltipData>();
+  const {
+    tooltipOpen, tooltipLeft, tooltipTop, tooltipData, hideTooltip, showTooltip
+  } = useTooltip<TooltipData>();
 
   const {containerRef, TooltipInPortal} = useTooltipInPortal({
-    scroll: true,
+    scroll: true
   });
 
   xScale.rangeRound([0, xMax]);
   yScale.range([yMax, 0]);
 
+  if (width < 100 || height < 100) {
+    return null;
+  }
+
   return (
     <TodoBarStackWrapper>
       <svg ref={containerRef} width={width} height={height}>
-        <GradientPinkBlue id={'visx-gradient-bar-pink'} fromOpacity={.6} toOpacity={1}/>
+        <GradientPinkBlue id="visx-gradient-bar-pink" fromOpacity={0.6} toOpacity={1} />
 
         <defs>
-          <linearGradient id={'visx-gradient-bar-teal'} x1={'0'} y1={'0'} x2={'0'} y2={'1'}>
-            <stop offset={'0%'} stopColor={'#6094EA'} stopOpacity={'1'}/>
-            <stop offset={'100%'} stopColor={'#17EAD9'} stopOpacity={'0.6'}/>
+          <linearGradient id="visx-gradient-bar-teal" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#6094EA" stopOpacity="1" />
+            <stop offset="100%" stopColor="#17EAD9" stopOpacity="0.6" />
           </linearGradient>
         </defs>
 
@@ -121,7 +112,7 @@ export const TodoBarStack: FC<TodoBarStackProps> = memo(({width, height, barStac
           <Group top={(height / 2) - defaultMargin.top} left={xMax / 2}>
             <TodoChartsPlug>
               <tspan x={0} dy={0}>{Content.BAR.PLUG.START[lang]}</tspan>
-              <tspan x={0} dy={'1.25em'}>{Content.BAR.PLUG.END[lang]}</tspan>
+              <tspan x={0} dy="1.25em">{Content.BAR.PLUG.END[lang]}</tspan>
             </TodoChartsPlug>
           </Group>
         )}
@@ -138,42 +129,38 @@ export const TodoBarStack: FC<TodoBarStackProps> = memo(({width, height, barStac
                 color={colorScale}
 
               >
-                {(barStacks) =>
-                  barStacks.map((barStack) =>
-                    barStack.bars.map((bar) => (
-                      <rect
-                        key={`bar-stack-${barStack.index}-${bar.index}`}
-                        x={bar.x}
-                        y={bar.key === 'active' ? bar.y + 2 : bar.y}
-                        height={bar.height}
-                        width={bar.width}
-                        fill={bar.color}
-                        onMouseLeave={() => {
-                          tooltipTimeout = window.setTimeout(() => {
-                            hideTooltip();
-                          }, 300);
-                        }}
-                        onMouseMove={(event) => {
-                          if (tooltipTimeout) clearTimeout(tooltipTimeout);
+                {barStacks => barStacks.map(barStack => barStack.bars.map(bar => (
+                  <rect
+                    key={`bar-stack-${barStack.index}-${bar.index}`}
+                    x={bar.x}
+                    y={bar.key === 'active' ? bar.y + 2 : bar.y}
+                    height={bar.height}
+                    width={bar.width}
+                    fill={bar.color}
+                    onMouseLeave={() => {
+                      tooltipTimeout = window.setTimeout(() => {
+                        hideTooltip();
+                      }, 300);
+                    }}
+                    onMouseMove={event => {
+                      if (tooltipTimeout) clearTimeout(tooltipTimeout);
 
-                          const eventSvgCoords = localPoint(event);
-                          const left = bar.x + bar.width / 2;
-                          const key = bar.key === 'active' ? 'active' : 'completed';
-                          const value = bar.bar.data[key];
+                      const eventSvgCoords = localPoint(event);
+                      const left = bar.x + bar.width / 2;
+                      const key = bar.key === 'active' ? 'active' : 'completed';
+                      const value = bar.bar.data[key];
 
-                          showTooltip({
-                            tooltipData: {
-                              label: bar.key,
-                              value
-                            },
-                            tooltipTop: eventSvgCoords?.y,
-                            tooltipLeft: left,
-                          });
-                        }}
-                      />
-                    ))
-                  )
-                }
+                      showTooltip({
+                        tooltipData: {
+                          label: bar.key,
+                          value
+                        },
+                        tooltipTop: eventSvgCoords?.y,
+                        tooltipLeft: left
+                      });
+                    }}
+                  />
+                )))}
               </BarStack>
             </TodoBarStackGroup>
           </Group>
@@ -182,22 +169,20 @@ export const TodoBarStack: FC<TodoBarStackProps> = memo(({width, height, barStac
         <AxisBottom
           top={yMax + defaultMargin.top}
           scale={xScale}
-          stroke={'none'}
-          tickStroke={'none'}
+          stroke="none"
+          tickStroke="none"
         >
-          {axis => {
-            return axis.ticks.map(tick => (
-              <TodoTickWrapper
-                key={`visx-axis-bot-tick-${tick.index}`}
-                x={tick.from.x}
-                y={tick.to.y}
-              >
-                <tspan x={tick.from.x} dy={tick.to.y + 6}>
-                  {tick.value}
-                </tspan>
-              </TodoTickWrapper>
-            ))
-          }}
+          {axis => axis.ticks.map(tick => (
+            <TodoTickWrapper
+              key={`visx-axis-bot-tick-${tick.index}`}
+              x={tick.from.x}
+              y={tick.to.y}
+            >
+              <tspan x={tick.from.x} dy={tick.to.y + 6}>
+                {tick.value}
+              </tspan>
+            </TodoTickWrapper>
+          ))}
         </AxisBottom>
       </svg>
 

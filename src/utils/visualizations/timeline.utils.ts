@@ -28,7 +28,7 @@ interface TimelineOptions {
 export const getFormattedTimelineData = (tasks: Array<DateBlock>) => {
   const data: Array<ITimeline> = [];
   const reverseTasks = [...tasks].reverse();
-  let date: Date = new Date(reverseTasks[0].date);
+  const date: Date = new Date(reverseTasks[0].date);
 
   while (date <= new Date()) {
     const segment: ITimeline = {
@@ -58,7 +58,9 @@ export const getFormattedTimelineData = (tasks: Array<DateBlock>) => {
   return data;
 };
 
-export const getTimelineOptions = ({getDate, data, width, height, margin}: TimelineOptions) => {
+export const getTimelineOptions = ({
+  getDate, data, width, height, margin
+}: TimelineOptions) => {
   const xMax = width - margin.left - margin.right;
   const yMax = height - margin.top - margin.bottom;
   const domains = data.map(getDate);
@@ -81,7 +83,9 @@ export const getTimelineOptions = ({getDate, data, width, height, margin}: Timel
   });
 
   return {
-    xMax, yMax,
-    xScale, yScale
+    xMax,
+    yMax,
+    xScale,
+    yScale
   };
 };

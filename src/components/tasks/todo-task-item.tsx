@@ -1,4 +1,6 @@
-import React, {FC, SyntheticEvent, useCallback, useEffect, useRef, useState, memo} from 'react';
+import React, {
+  FC, SyntheticEvent, useCallback, useEffect, useRef, useState, memo
+} from 'react';
 
 import {Checked} from '../../common/ui-components/checked';
 import {useIsFirstRender} from '../../common/hooks/useIsFirstRender';
@@ -31,16 +33,14 @@ export const TodoTaskItem: FC<ItemProps> = memo(({
 
   const isFirstRender = useIsFirstRender();
 
-  const onUpdateTask = useCallback(
-    (): void => {
-      const newMessage = currentValue.trim();
-      setIsEditMode(!isEditMode);
+  const onUpdateTask = useCallback((): void => {
+    const newMessage = currentValue.trim();
+    setIsEditMode(!isEditMode);
 
-      if (isEditMode && newMessage !== task.message) {
-        taskManagement(Actions.EDIT, task.id, newMessage);
-      }
-    }, [currentValue, isEditMode]
-  );
+    if (isEditMode && newMessage !== task.message) {
+      taskManagement(Actions.EDIT, task.id, newMessage);
+    }
+  }, [currentValue, isEditMode, task, taskManagement]);
 
   useEffect(() => {
     if (areaRef.current && (isEditMode || isFirstRender)) {
@@ -58,7 +58,7 @@ export const TodoTaskItem: FC<ItemProps> = memo(({
     if (isRemoveMode || !isTodoMode) {
       setChecked(false);
     }
-  }, [isTodoMode, isRemoveMode]);
+  }, [isTodoMode, isRemoveMode, task]);
 
   return (
     <TodoTaskWrapper>

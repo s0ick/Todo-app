@@ -5,7 +5,9 @@ import {Links} from '../../../utils/constants';
 
 import {IconThemeMode, IconList, IconStatistic} from '../icons';
 
-import {TodoMenuList, TodoMenuWrapper, TodoMenuIcon, TodoMenuIconNav} from './todo-menu.styled';
+import {
+  TodoMenuList, TodoMenuWrapper, TodoMenuIcon, TodoMenuIconNav
+} from './todo-menu.styled';
 
 interface MenuProps {
   setTheme: () => void;
@@ -15,26 +17,29 @@ interface MenuProps {
   isShow: boolean;
 }
 
-export const TodoMenu: FC<MenuProps> = memo(({setTheme, isLightMode, setLang, lang, isShow = false}) => {
+export const TodoMenu: FC<MenuProps> = memo(({
+  setTheme, isLightMode, setLang, lang, isShow = false
+}) => {
   const location = useLocation();
 
   return (
     <TodoMenuWrapper>
       <TodoMenuList>
-        {isShow &&
+        {isShow
+          && (
           <>
             <NavLink to={Links.TASKS}>
               <TodoMenuIconNav isCurrent={location.pathname === Links.TASKS}>
-                <IconList size={25}/>
+                <IconList size={25} />
               </TodoMenuIconNav>
             </NavLink>
             <NavLink to={Links.DASH}>
               <TodoMenuIconNav isCurrent={location.pathname === Links.DASH}>
-                <IconStatistic size={25}/>
+                <IconStatistic size={25} />
               </TodoMenuIconNav>
             </NavLink>
           </>
-        }
+          )}
       </TodoMenuList>
 
       <TodoMenuList>
@@ -46,7 +51,7 @@ export const TodoMenu: FC<MenuProps> = memo(({setTheme, isLightMode, setLang, la
           onClick={setTheme}
           isLight={isLightMode}
         >
-          <IconThemeMode size={18}/>
+          <IconThemeMode size={18} />
         </TodoMenuIcon>
       </TodoMenuList>
     </TodoMenuWrapper>

@@ -31,7 +31,7 @@ export const TodoTaskWrapper = styled.div`
 
 export const TodoTasksDateBlock = styled.div<DateBlockProps>`
   overflow: hidden;
-  height: ${props => props.isHide ? `60px` : 'auto'};
+  height: ${props => (props.isHide ? '60px' : 'auto')};
   color: ${props => props.theme.text};
   padding: 15px;
   transition: color .2s ease-in;
@@ -46,7 +46,7 @@ export const TodoTasksPanelControl = styled.div<PanelControlProps>`
   justify-content: flex-start;
   margin-bottom: 20px;
   
-  color: ${props => props.isCompleted ? props.theme.secondaryText : props.theme.text};
+  color: ${props => (props.isCompleted ? props.theme.secondaryText : props.theme.text)};
   transition: color .2s ease-in;
   
   :hover {
@@ -73,7 +73,7 @@ export const TodoTasksArrow = styled.div<DateBlockProps>`
   
   svg {
     fill: ${props => props.theme.action};
-    transform: ${props => props.isHide ? 'rotate(0)' : 'rotate(-180deg)'};
+    transform: ${props => (props.isHide ? 'rotate(0)' : 'rotate(-180deg)')};
     transition: transform 0.2s ease-in, fill 0.2s ease-in;
     
     :hover {

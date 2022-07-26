@@ -7,7 +7,8 @@ export function useIsFirstRender() {
     () => {
       isFirstRenderRef.current = false;
     },
-    []);
+    []
+  );
 
   return isFirstRenderRef.current;
 }

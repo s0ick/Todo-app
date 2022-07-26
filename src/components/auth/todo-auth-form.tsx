@@ -1,4 +1,6 @@
-import React, {FC, memo, useCallback, useState} from 'react';
+import React, {
+  FC, memo, useCallback, useState
+} from 'react';
 
 import {Checked} from '../../common/ui-components/checked';
 import {PageButton, PageSubtitle, PageTitle} from '../../common/styled/ui-components';
@@ -36,62 +38,52 @@ export const TodoAuthForm: FC<FormProps> = memo(({setIsGuest, setTasks, lang}) =
     setChecked(false);
   };
 
-  const handleInput = useCallback(
-    (event: React.FormEvent<EventTarget>) => {
-      const target = event.target as HTMLInputElement;
+  const handleInput = useCallback((event: React.FormEvent<EventTarget>) => {
+    const target = event.target as HTMLInputElement;
 
-      switch (target.name) {
-        case 'name':
-          setName(target.value);
-          break;
-        case 'psw':
-          setPsw(target.value);
-          break;
-        case 'r-psw':
-          setRPsw(target.value);
-          break;
-        default: break;
-      }
-    }, []
-  );
+    switch (target.name) {
+      case 'name':
+        setName(target.value);
+        break;
+      case 'psw':
+        setPsw(target.value);
+        break;
+      case 'r-psw':
+        setRPsw(target.value);
+        break;
+      default: break;
+    }
+  }, []);
 
-  const handleRegistration = useCallback(
-    () => {
-      if (!registrationMode) {
-        clear();
-        setRegistrationMode(true);
-        return;
-      }
+  const handleRegistration = useCallback(() => {
+    if (!registrationMode) {
+      clear();
+      setRegistrationMode(true);
+    }
 
-      // ...code
-    }, [registrationMode]
-  );
+    // ...code
+  }, [registrationMode]);
 
-  const handleMultipleAction = useCallback(
-    () => {
-      if (registrationMode) {
-        clear();
-        setRegistrationMode(false);
-        return;
-      }
+  const handleMultipleAction = useCallback(() => {
+    if (registrationMode) {
+      clear();
+      setRegistrationMode(false);
+    }
 
-      // ...code
-    }, [registrationMode]
-  );
+    // ...code
+  }, [registrationMode]);
 
-  const handleGuest = useCallback(
-    () => {
-      const tasks: Array<DateBlock> = JSON.parse(localStorage.getItem(LocalStorageKeys.TASKS) ?? '[]');
+  const handleGuest = useCallback(() => {
+    const tasks: Array<DateBlock> = JSON.parse(localStorage.getItem(LocalStorageKeys.TASKS) ?? '[]');
 
-      setIsGuest();
-      setTasks(tasks);
-    }, [setIsGuest]
-  );
+    setIsGuest();
+    setTasks(tasks);
+  }, [setIsGuest, setTasks]);
 
   return (
     <TodoAuthWrapper>
       <PageTitle>
-        {'To Do App'}
+        To Do App
       </PageTitle>
       <TodoAuthSubtitle>
         <PageSubtitle>
@@ -101,15 +93,15 @@ export const TodoAuthForm: FC<FormProps> = memo(({setIsGuest, setTasks, lang}) =
 
       <TodoAuthActionsBlock>
         <TodoAuthInput
-          type={'text'}
-          name={'name'}
+          type="text"
+          name="name"
           value={name}
           placeholder={Content.AUTH.FIELDS.NAME[lang]}
           onInput={handleInput}
         />
         <TodoAuthInput
-          type={'password'}
-          name={'psw'}
+          type="password"
+          name="psw"
           value={psw}
           placeholder={Content.AUTH.FIELDS.PSW[lang]}
           onInput={handleInput}
@@ -117,23 +109,27 @@ export const TodoAuthForm: FC<FormProps> = memo(({setIsGuest, setTasks, lang}) =
       </TodoAuthActionsBlock>
 
       <TodoAuthActionsBlock notMargin={registrationMode}>
-        {registrationMode &&
+        {registrationMode
+          && (
           <TodoAuthInput
-            type={'password'}
-            name={'r-psw'}
+            type="password"
+            name="r-psw"
             value={rPsw}
             placeholder={Content.AUTH.FIELDS.R_PSW[lang]}
             onInput={handleInput}
             disabled={!registrationMode}
-          />}
-        {!registrationMode &&
+          />
+          )}
+        {!registrationMode
+          && (
           <TodoAuthCheckbox>
             <Checked
               checked={checked}
               onChange={() => setChecked(prevState => !prevState)}
               label={Content.AUTH.ACTIONS.REM_ME[lang]}
             />
-          </TodoAuthCheckbox>}
+          </TodoAuthCheckbox>
+          )}
       </TodoAuthActionsBlock>
 
       <TodoAuthActionsBlock>
@@ -151,4 +147,4 @@ export const TodoAuthForm: FC<FormProps> = memo(({setIsGuest, setTasks, lang}) =
       </TodoAuthGuest>
     </TodoAuthWrapper>
   );
-})
+});

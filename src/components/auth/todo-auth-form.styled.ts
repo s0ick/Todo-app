@@ -24,7 +24,7 @@ export const TodoAuthActionsBlock = styled.div<ActionBlockProps>`
   align-items: center;
   justify-content: center;
   
-  margin-top: ${props => props.notMargin ? '20px' : '44px'};
+  margin-top: ${props => (props.notMargin ? '20px' : '44px')};
 `;
 
 export const TodoAuthInput = styled.input`

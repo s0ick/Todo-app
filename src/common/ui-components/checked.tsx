@@ -18,7 +18,7 @@ interface WrapperProps {
 
 const CheckboxWrapper = styled.label<WrapperProps>`
   font-size: 18px;
-  cursor: ${props => props.disabled ? 'default' : 'pointer'};
+  cursor: ${props => (props.disabled ? 'default' : 'pointer')};
 `;
 
 const HiddenCheckbox = styled.input.attrs({type: 'checkbox'})`
@@ -41,9 +41,11 @@ const StyledCheckbox = styled.div<ComponentProps>`
   margin-right: 10px;
   background-color: ${Colors.TRANSPARENT};
   
-  border: ${props => props.checked ? `0px solid ${props.theme.background}` : `2px solid ${props.theme.background}`};
+  border-color: ${props => props.theme.background};
+  border-style: solid;
+  border-width: ${props => (props.checked ? '2px' : '0px')};
   border-radius: 50%;
-  ${props => props.checked ? props.theme.neoDown : props.theme.neoInDepth};
+  ${props => (props.checked ? props.theme.neoDown : props.theme.neoInDepth)};
 
   transition: border .2s ease-in, box-shadow .2s ease-in;
   
@@ -51,9 +53,9 @@ const StyledCheckbox = styled.div<ComponentProps>`
     padding: 5px;
     fill: none;
     stroke-width: 2px;
-    stroke: ${props => props.checked ? props.theme.action : props.theme.text};
-    filter: ${props => props.checked ? `drop-shadow(0 0 2px ${props.theme.action}) drop-shadow(0 0 10px ${props.theme.action})` : 'none'};
-    visibility: ${props => props.checked ? 'visible' : 'hidden'}
+    stroke: ${props => (props.checked ? props.theme.action : props.theme.text)};
+    filter: ${props => (props.checked ? `drop-shadow(0 0 2px ${props.theme.action}) drop-shadow(0 0 10px ${props.theme.action})` : 'none')};
+    visibility: ${props => (props.checked ? 'visible' : 'hidden')}
   }
 `;
 
@@ -65,9 +67,9 @@ const CheckboxContainer = styled.div`
 export const Checked: FC<ComponentProps> = memo(({checked, label, ...props}) => (
   <CheckboxWrapper disabled={props.disabled}>
     <CheckboxContainer>
-      <HiddenCheckbox checked={checked} {...props}/>
+      <HiddenCheckbox checked={checked} {...props} />
       <StyledCheckbox checked={checked}>
-        <IconChecked/>
+        <IconChecked />
       </StyledCheckbox>
     </CheckboxContainer>
     {label && <span>{label}</span>}

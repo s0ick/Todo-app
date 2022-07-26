@@ -64,7 +64,7 @@ export const PageLoader = styled.div<LoaderProps>`
   left: 0;
   top: 0;
   
-  opacity: ${props => props.stage === InitializationStages.START ? 1 : 0};
+  opacity: ${props => (props.stage === InitializationStages.START ? 1 : 0)};
   
   z-index: 9999;
   
@@ -80,11 +80,11 @@ export const PageButton = styled.div<ButtonProps>`
   display: flex;
   justify-content: center;
   
-  min-width: ${props => props.isLarge ? '210px' : '160px'};
+  min-width: ${props => (props.isLarge ? '210px' : '160px')};
   
   text-transform: uppercase;
   overflow: hidden;
-  font-size: ${props => props.isLarge ? '18px' : '16px'};
+  font-size: ${props => (props.isLarge ? '18px' : '16px')};
   letter-spacing: 2px;
   
   border-radius: 40px;
@@ -108,32 +108,32 @@ export const PageButton = styled.div<ButtonProps>`
   :after {
     content: '';
     position: absolute;
-    left: ${props => props.isActive ? '0' : '-100%'};
+    left: ${props => (props.isActive ? '0' : '-100%')};
     top: 0;
     width: 100%;
     height: 100%;
     border-radius: 40px;
     background-image: ${props => {
-      let color1;
-      let color2;
-      
-      switch (props.bgc) {
-        case ButtonColors.GREEN:
-          color1 = props.theme.success;
-          color2 = props.theme.successLight;
-          break;
-        case ButtonColors.PURPLE:
-          color1 = props.theme.hintAction;
-          color2 = props.theme.hintActionLight;
-          break;
-        default:
-          color1 = props.theme.action;
-          color2 = props.theme.actionLight;
-          break;  
-      }
-      
-      return `linear-gradient(90deg, ${color1}, ${color2});`;
-    }};
+    let color1;
+    let color2;
+
+    switch (props.bgc) {
+      case ButtonColors.GREEN:
+        color1 = props.theme.success;
+        color2 = props.theme.successLight;
+        break;
+      case ButtonColors.PURPLE:
+        color1 = props.theme.hintAction;
+        color2 = props.theme.hintActionLight;
+        break;
+      default:
+        color1 = props.theme.action;
+        color2 = props.theme.actionLight;
+        break;
+    }
+
+    return `linear-gradient(90deg, ${color1}, ${color2});`;
+  }};
     z-index: -1;
 
     transition: left .35s ease-in, color .2s ease-in;
@@ -216,7 +216,7 @@ export const NotificationItem = styled.div<NotificationsStylesProps>`
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   border-radius: 10px;
 
-  animation: ${props => props.exit ? slideRight : slideLeft} .4s;
+  animation: ${props => (props.exit ? slideRight : slideLeft)} .4s;
   animation-fill-mode: forwards;
   
   background-color: ${Colors.DARK};
@@ -242,7 +242,7 @@ export const NotificationItem = styled.div<NotificationsStylesProps>`
   }
   
   div {
-    background-color: ${props => props.isSuccess ? Colors.SUCCESS : Colors.ERROR};
+    background-color: ${props => (props.isSuccess ? Colors.SUCCESS : Colors.ERROR)};
     height: 5px;
   }
 `;

@@ -32,13 +32,13 @@ export const TodoMenuIconNav = styled.div<IconNavProps>`
   justify-content: center;
   
   border-radius: 50%;
-  ${props => props.isCurrent ? props.theme.neoDown : props.theme.neoUp};
+  ${props => (props.isCurrent ? props.theme.neoDown : props.theme.neoUp)};
   
   transition: box-shadow .2s ease-in;
   
   svg {
-    fill: ${props => props.isCurrent ? props.theme.action : props.theme.secondaryText};
-    filter: ${props => props.isCurrent ? `drop-shadow(0 0 5px ${props.theme.actionLight})` : 'none'};
+    fill: ${props => (props.isCurrent ? props.theme.action : props.theme.secondaryText)};
+    filter: ${props => (props.isCurrent ? `drop-shadow(0 0 5px ${props.theme.actionLight})` : 'none')};
     
     transition: fill 0.2s ease-in, box-shadow 0.2s ease-in, filter .2s ease-in;
   }
@@ -65,8 +65,8 @@ export const TodoMenuIcon = styled.div<IconProps>`
   
   svg {
     border-radius: 50%;
-    fill: ${props => props.isLight ? props.theme.secondaryText : props.theme.iconTheme};
-    filter: ${props => !props.isLight ? `drop-shadow(0 0 2px ${props.theme.iconTheme}) drop-shadow(0 0 10px ${props.theme.iconTheme})` : 'none'};
+    fill: ${props => (props.isLight ? props.theme.secondaryText : props.theme.iconTheme)};
+    filter: ${props => (!props.isLight ? `drop-shadow(0 0 2px ${props.theme.iconTheme}) drop-shadow(0 0 10px ${props.theme.iconTheme})` : 'none')};
     
     transition: fill 0.2s ease-in, box-shadow 0.2s ease-in, filter .2s ease-in;
   }

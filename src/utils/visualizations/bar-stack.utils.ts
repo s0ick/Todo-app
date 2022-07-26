@@ -54,12 +54,12 @@ export const getFormattedBarStackData = (tasks: Array<DateBlock>, lang: Language
   let max = 0;
 
   tasks.forEach(dateBlock => {
-    let targetDate = new Date(dateBlock.date);
+    const targetDate = new Date(dateBlock.date);
 
     if (currentWeekly === getWeekly(targetDate) && currentDate.getFullYear() === targetDate.getFullYear()) {
       let activeCounter = 0;
       let completedCounter = 0;
-      let day = targetDate.getDay();
+      const day = targetDate.getDay();
 
       dateBlock.tasks.forEach(task => {
         activeCounter = task.completed ? activeCounter : activeCounter + 1;

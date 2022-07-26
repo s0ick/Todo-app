@@ -1,4 +1,6 @@
-import React, {createContext, Dispatch, FC, useContext, useReducer} from 'react';
+import React, {
+  createContext, Dispatch, FC, memo, useContext, useReducer
+} from 'react';
 
 import {uuid} from '../../../utils/utils';
 
@@ -33,8 +35,8 @@ interface NotificationProps {
 
 const NotificationContext = createContext<Dispatch<ActionProps | null> | null>(null);
 
-export const NotificationsProvider: FC<ProviderProps> = ({children}) => {
-  const [state, dispatch] = useReducer((state: any, action: ActionProps | null) => {
+export const NotificationsProvider: FC<ProviderProps> = memo(({children}) => {
+  const [store, dispatch] = useReducer((state: any, action: ActionProps | null) => {
     switch (action?.type) {
       case 'ADD_NOTIFICATION':
         return [...state, {...action?.payload}];
@@ -48,12 +50,12 @@ export const NotificationsProvider: FC<ProviderProps> = ({children}) => {
   return (
     <NotificationContext.Provider value={dispatch}>
       <NotificationsWrapper>
-        {state.map((note: NoteProps) => <Notifications dispatch={dispatch} key={note.id} {...note}/>)}
+        {store.map((note: NoteProps) => <Notifications dispatch={dispatch} key={note.id} {...note} />)}
       </NotificationsWrapper>
       {children}
     </NotificationContext.Provider>
   );
-};
+});
 
 export const useNotification = () => {
   const dispatch = useContext(NotificationContext);
@@ -68,6 +70,5 @@ export const useNotification = () => {
         }
       });
     }
-  }
+  };
 };
-

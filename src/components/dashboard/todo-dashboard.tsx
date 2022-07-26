@@ -25,14 +25,12 @@ interface DashboardProps {
 }
 
 export const TodoDashboard: FC<DashboardProps> = memo(({tasks, lang}) => {
-  const {piesData, barStackData, timelineData} = useMemo(
-    () => {
-      const piesData = getFormattedPiesData(tasks, lang);
-      const barStackData = getFormattedBarStackData(tasks, lang);
-      const timelineData = getFormattedTimelineData(tasks);
-      return {piesData, barStackData, timelineData};
-    }, [tasks, lang]
-  );
+  const {piesData, barStackData, timelineData} = useMemo(() => {
+    const pies = getFormattedPiesData(tasks, lang);
+    const barStack = getFormattedBarStackData(tasks, lang);
+    const timeline = getFormattedTimelineData(tasks);
+    return {piesData: pies, barStackData: barStack, timelineData: timeline};
+  }, [tasks, lang]);
 
   return (
     <PageContent>
@@ -45,7 +43,7 @@ export const TodoDashboard: FC<DashboardProps> = memo(({tasks, lang}) => {
           <TodoDashboardBlockSubtitle>
             {Content.PIES.SUBTITLE[lang]}
           </TodoDashboardBlockSubtitle>
-          <TodoPies data={piesData} size={350} lang={lang}/>
+          <TodoPies data={piesData} size={350} lang={lang} />
         </TodoDashboardBlock>
 
         <TodoDashboardBlock>
@@ -55,7 +53,7 @@ export const TodoDashboard: FC<DashboardProps> = memo(({tasks, lang}) => {
           <TodoDashboardBlockSubtitle>
             {Content.BAR.SUBTITLE[lang]}
           </TodoDashboardBlockSubtitle>
-          <TodoBarStack barStackData={barStackData} width={500} height={350} lang={lang}/>
+          <TodoBarStack barStackData={barStackData} width={500} height={350} lang={lang} />
         </TodoDashboardBlock>
 
         <TodoDashboardBlock>
@@ -65,7 +63,7 @@ export const TodoDashboard: FC<DashboardProps> = memo(({tasks, lang}) => {
           <TodoDashboardBlockSubtitle>
             {Content.LINE.SUBTITLE[lang]}
           </TodoDashboardBlockSubtitle>
-          <TodoTimelineBrush data={timelineData} width={1600} height={350} brushHeight={50}/>
+          <TodoTimelineBrush data={timelineData} width={1600} height={350} brushHeight={50} />
         </TodoDashboardBlock>
 
       </TodoDashboardWrapper>

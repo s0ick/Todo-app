@@ -1,10 +1,12 @@
 import React, {FC, memo, useCallback} from 'react';
-import {useTooltip, useTooltipInPortal, defaultStyles, TooltipWithBounds} from '@visx/tooltip';
 import {AxisLeft, AxisBottom} from '@visx/axis';
 import {LinePath, Bar, Line} from '@visx/shape';
 import {localPoint} from '@visx/event';
 import {Group} from '@visx/group';
 import {bisector} from 'd3-array';
+import {
+  useTooltip, useTooltipInPortal, defaultStyles, TooltipWithBounds
+} from '@visx/tooltip';
 
 import {IMargin, ITimeline} from '../../../../utils/visualizations/timeline.utils';
 import {getFormattedDate} from '../../../../utils/utils';
@@ -49,16 +51,14 @@ export const TodoTimeline: FC<TimelineProps> = memo(({
   data, isBrush, options,
   getDate, margin, children
 }) => {
-  if (width < 80) {
-    return null;
-  }
-
   const {xScale, yScale, yMax} = options;
   const bisectDate = bisector<ITimeline, Date>(d => d.x).left;
 
-  const {tooltipLeft, tooltipTop, tooltipData, hideTooltip, showTooltip} = useTooltip<TooltipData>();
+  const {
+    tooltipLeft, tooltipTop, tooltipData, hideTooltip, showTooltip
+  } = useTooltip<TooltipData>();
   const {containerRef} = useTooltipInPortal({
-    scroll: true,
+    scroll: true
   });
 
   const handleTooltip = useCallback(
@@ -78,8 +78,12 @@ export const TodoTimeline: FC<TimelineProps> = memo(({
         tooltipTop: yScale(d.active)
       });
     },
-    [showTooltip, yScale, xScale]
+    [showTooltip, yScale, xScale, bisectDate, data, getDate]
   );
+
+  if (width < 80) {
+    return null;
+  }
 
   return (
     <TodoTimelineWrapper>
@@ -88,22 +92,20 @@ export const TodoTimeline: FC<TimelineProps> = memo(({
           {!isBrush && (
             <AxisLeft
               scale={yScale}
-              stroke={'none'}
-              tickStroke={'none'}
+              stroke="none"
+              tickStroke="none"
             >
-              {axis => {
-                return axis.ticks.map(tick => (
-                  <TodoTickWrapper
-                    key={`visx-axis-bot-tick-${tick.index}`}
-                    x={tick.from.x}
-                    y={tick.to.y}
-                  >
-                    <tspan x={tick.from.x - 15}>
-                      {tick.formattedValue}
-                    </tspan>
-                  </TodoTickWrapper>
-                ))
-              }}
+              {axis => axis.ticks.map(tick => (
+                <TodoTickWrapper
+                  key={`visx-axis-bot-tick-${tick.index}`}
+                  x={tick.from.x}
+                  y={tick.to.y}
+                >
+                  <tspan x={tick.from.x - 15}>
+                    {tick.formattedValue}
+                  </tspan>
+                </TodoTickWrapper>
+              ))}
             </AxisLeft>
           )}
 
@@ -141,23 +143,21 @@ export const TodoTimeline: FC<TimelineProps> = memo(({
               <AxisBottom
                 top={yMax}
                 scale={xScale}
-                stroke={'none'}
-                tickStroke={'none'}
+                stroke="none"
+                tickStroke="none"
                 numTicks={width > 520 ? 10 : 5}
               >
-                {axis => {
-                  return axis.ticks.map(tick => (
-                    <TodoTickWrapper
-                      key={`visx-axis-bot-tick-${tick.index}`}
-                      x={tick.from.x}
-                      y={tick.to.y}
-                    >
-                      <tspan x={tick.from.x + margin.left} dy={tick.to.y + margin.top}>
-                        {tick.formattedValue !== '12 PM' && tick.formattedValue}
-                      </tspan>
-                    </TodoTickWrapper>
-                  ))
-                }}
+                {axis => axis.ticks.map(tick => (
+                  <TodoTickWrapper
+                    key={`visx-axis-bot-tick-${tick.index}`}
+                    x={tick.from.x}
+                    y={tick.to.y}
+                  >
+                    <tspan x={tick.from.x + margin.left} dy={tick.to.y + margin.top}>
+                      {tick.formattedValue !== '12 PM' && tick.formattedValue}
+                    </tspan>
+                  </TodoTickWrapper>
+                ))}
               </AxisBottom>
             </>
           )}
@@ -169,7 +169,7 @@ export const TodoTimeline: FC<TimelineProps> = memo(({
                 to={{x: tooltipLeft - margin.left, y: height - margin.bottom}}
                 stroke={Colors.HINT_ACTION}
                 strokeWidth={1}
-                pointerEvents={'none'}
+                pointerEvents="none"
                 strokeDasharray={5}
               />
               <circle
@@ -181,7 +181,7 @@ export const TodoTimeline: FC<TimelineProps> = memo(({
                 stroke={Colors.WHITE}
                 strokeWidth={1}
                 strokeOpacity={0.8}
-                pointerEvents={'none'}
+                pointerEvents="none"
               />
               <circle
                 cx={xScale(getDate(tooltipData))}
@@ -192,7 +192,7 @@ export const TodoTimeline: FC<TimelineProps> = memo(({
                 stroke={Colors.WHITE}
                 strokeWidth={1}
                 strokeOpacity={0.8}
-                pointerEvents={'none'}
+                pointerEvents="none"
               />
             </g>
           )}
@@ -214,11 +214,11 @@ export const TodoTimeline: FC<TimelineProps> = memo(({
                 <strong>{getFormattedDate(tooltipData.x)}</strong>
               </TooltipRow>
               <TooltipRow>
-                <TooltipLine bgc={Colors.SUCCESS}/>
+                <TooltipLine bgc={Colors.SUCCESS} />
                 {`Completed: ${tooltipData.completed}`}
               </TooltipRow>
               <TooltipRow>
-                <TooltipLine bgc={Colors.ACTION}/>
+                <TooltipLine bgc={Colors.ACTION} />
                 {`Active: ${tooltipData.active}`}
               </TooltipRow>
             </TooltipWrapper>

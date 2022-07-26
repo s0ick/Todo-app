@@ -1,4 +1,6 @@
-import React, {FC, useCallback, useEffect, useMemo, useRef, useState} from 'react';
+import React, {
+  FC, memo, useCallback, useEffect, useMemo, useRef, useState
+} from 'react';
 import {BrushHandleRenderProps} from '@visx/brush/lib/BrushHandle';
 import BaseBrush from '@visx/brush/lib/BaseBrush';
 import {Bounds} from '@visx/brush/lib/types';
@@ -21,17 +23,21 @@ interface TimelineProps {
 }
 
 const PATTERN_ID = 'BRUSH_PATTERN';
-const defaultMargin = {top: 10, right: 30, bottom: 30, left: 30};
-const defaultBrushMargin = {top: 0, right: 30, bottom: 0, left: 30};
+const defaultMargin = {
+  top: 10, right: 30, bottom: 30, left: 30
+};
+const defaultBrushMargin = {
+  top: 0, right: 30, bottom: 0, left: 30
+};
 const selectedBrushStyle = {
   fill: `url(#${PATTERN_ID})`,
-  fillOpacity: .5,
-  strokeOpacity: .5,
+  fillOpacity: 0.5,
+  strokeOpacity: 0.5,
   stroke: 'white',
   rx: '14px'
 };
 
-const BrushHandle = ({x, height, isBrushActive}: BrushHandleRenderProps) => {
+function BrushHandle({x, height, isBrushActive}: BrushHandleRenderProps) {
   const pathWidth = 8;
   const pathHeight = 15;
 
@@ -42,42 +48,32 @@ const BrushHandle = ({x, height, isBrushActive}: BrushHandleRenderProps) => {
   return (
     <Group left={x + pathWidth / 2} top={(height - pathHeight) / 2} rx={20}>
       <path
-        d={'M -4.5 0.5 L 3.5 0.5 L 3.5 15.5 L -4.5 15.5 L -4.5 0.5 M -1.5 4 L -1.5 12 M 0.5 4 L 0.5 12'}
+        d="M -4.5 0.5 L 3.5 0.5 L 3.5 15.5 L -4.5 15.5 L -4.5 0.5 M -1.5 4 L -1.5 12 M 0.5 4 L 0.5 12"
         fill={Colors.WHITE}
-        fillOpacity={.5}
+        fillOpacity={0.5}
         stroke={Colors.LIGHT}
-        strokeWidth={'1'}
+        strokeWidth="1"
         style={{cursor: 'ew-resize'}}
       />
     </Group>
   );
-};
+}
 
-export const TodoTimelineBrush: FC<TimelineProps> = ({width, height, data, brushHeight}) => {
-  if (width < 80) {
-    return null;
-  }
-
+export const TodoTimelineBrush: FC<TimelineProps> = memo(({
+  width, height, data, brushHeight
+}) => {
   const brushRef = useRef<BaseBrush | null>(null);
   const [filteredData, setFilteredData] = useState(data);
 
   const getDate = (d: ITimeline) => d.x.valueOf();
 
-  const options = useMemo(
-    () => {
-      return getTimelineOptions({
-        getDate, data: filteredData, height, width, margin: defaultMargin
-      });
-    }, [filteredData, height, width]
-  );
+  const options = useMemo(() => getTimelineOptions({
+    getDate, data: filteredData, height, width, margin: defaultMargin
+  }), [filteredData, height, width]);
 
-  const brushOptions = useMemo(
-    () => {
-      return getTimelineOptions({
-        getDate, data, height: brushHeight, width, margin: defaultBrushMargin
-      });
-    }, [data, brushHeight, width]
-  );
+  const brushOptions = useMemo(() => getTimelineOptions({
+    getDate, data, height: brushHeight, width, margin: defaultBrushMargin
+  }), [data, brushHeight, width]);
 
   const initialBrushPosition = useMemo(
     () => {
@@ -90,26 +86,24 @@ export const TodoTimelineBrush: FC<TimelineProps> = ({width, height, data, brush
         end: {x: xScale(getDate(data[data.length - 1]))}
       };
     },
-    [brushOptions.xScale, data]
+    [data, brushOptions]
   );
 
-  const onBrushChange = useCallback(
-    (domain: Bounds | null) => {
-      if (!domain) {
-        return;
-      }
+  const onBrushChange = useCallback((domain: Bounds | null) => {
+    if (!domain) {
+      return;
+    }
 
-      const {x0, x1} = domain;
-      const dataCopy = data.filter(s => {
-        const x = getDate(s);
-        return x > x0 && x < x1;
-      });
+    const {x0, x1} = domain;
+    const dataCopy = data.filter(s => {
+      const x = getDate(s);
+      return x > x0 && x < x1;
+    });
 
-      if (dataCopy.length > 5) {
-        setFilteredData(dataCopy);
-      }
-    }, [data]
-  );
+    if (dataCopy.length > 5) {
+      setFilteredData(dataCopy);
+    }
+  }, [data]);
 
   useEffect(() => {
     const startPoint = data.length > 51 ? data.length - 50 : 0;
@@ -122,6 +116,10 @@ export const TodoTimelineBrush: FC<TimelineProps> = ({width, height, data, brush
 
     setFilteredData(dataCopy);
   }, [data]);
+
+  if (width < 80) {
+    return null;
+  }
 
   return (
     <TodoTimelineWrapper>
@@ -162,15 +160,15 @@ export const TodoTimelineBrush: FC<TimelineProps> = ({width, height, data, brush
           handleSize={8}
           innerRef={brushRef}
           resizeTriggerAreas={['left', 'right']}
-          brushDirection={'horizontal'}
+          brushDirection="horizontal"
           initialBrushPosition={initialBrushPosition}
           onChange={onBrushChange}
           onClick={() => setFilteredData(data)}
           selectedBoxStyle={selectedBrushStyle}
           useWindowMoveEvents
-          renderBrushHandle={(props) => <BrushHandle {...props} />}
+          renderBrushHandle={props => <BrushHandle {...props} />}
         />
       </TodoTimeline>
     </TodoTimelineWrapper>
   );
-};
+});
