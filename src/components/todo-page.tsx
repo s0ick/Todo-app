@@ -129,8 +129,8 @@ export function TodoPage() {
 
       dateBlock.tasks.forEach((task, index) => {
         if (task.id && affectedTasks[task.id]) {
-          newDateBlock[index].task.completed = !task.completed;
-          newDateBlock[index].task.dateCompleted = task.completed ? new Date() : null;
+          newDateBlock.tasks[index].completed = !task.completed;
+          newDateBlock.tasks[index].dateCompleted = task.completed ? new Date() : null;
         }
       });
 
